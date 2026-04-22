@@ -117,7 +117,7 @@ function QueuesPage() {
       <PageHeader
         title={t("calls.queues.title")}
         description={t("calls.queues.desc")}
-        action={
+        actions={
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button>

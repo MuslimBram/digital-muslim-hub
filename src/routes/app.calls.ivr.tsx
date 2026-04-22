@@ -155,7 +155,7 @@ function IvrPage() {
       <PageHeader
         title={t("calls.ivr.title")}
         description={t("calls.ivr.desc")}
-        action={
+        actions={
           <Dialog open={openNew} onOpenChange={setOpenNew}>
             <DialogTrigger asChild>
               <Button>
