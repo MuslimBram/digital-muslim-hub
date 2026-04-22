@@ -5,6 +5,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { Softphone } from "@/calls/components/Softphone";
+import { TrialBanner } from "@/components/TrialBanner";
+import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -35,6 +37,8 @@ function AppLayout() {
       <div className="flex min-h-screen w-full bg-background">
         <AppSidebar />
         <div className="flex flex-1 flex-col">
+          <PaymentTestModeBanner />
+          <TrialBanner />
           <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-2 border-b border-border bg-background/80 px-4 backdrop-blur-xl">
             <SidebarTrigger />
             <div className="flex items-center gap-2">
