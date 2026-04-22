@@ -2537,6 +2537,10 @@ export type Database = {
       }
     }
     Functions: {
+      count_user_active_subscriptions: {
+        Args: { _user_id: string }
+        Returns: number
+      }
       emit_integration_event: {
         Args: {
           _event_type: Database["public"]["Enums"]["webhook_event_type"]
