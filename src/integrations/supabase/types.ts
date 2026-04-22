@@ -2075,7 +2075,12 @@ export type Database = {
       channel_type: "whatsapp" | "telegram" | "email" | "sms" | "webchat"
       contact_status: "lead" | "qualified" | "customer" | "churned"
       conversation_status: "open" | "pending" | "resolved" | "closed"
-      credit_kind: "image_gen" | "image_upload" | "video_gen" | "video_upload"
+      credit_kind:
+        | "image_gen"
+        | "image_upload"
+        | "video_gen"
+        | "video_upload"
+        | "ai_reply"
       deal_status: "open" | "won" | "lost"
       dialer_mode: "preview" | "progressive" | "predictive"
       dialer_status: "draft" | "running" | "paused" | "completed"
@@ -2277,7 +2282,13 @@ export const Constants = {
       channel_type: ["whatsapp", "telegram", "email", "sms", "webchat"],
       contact_status: ["lead", "qualified", "customer", "churned"],
       conversation_status: ["open", "pending", "resolved", "closed"],
-      credit_kind: ["image_gen", "image_upload", "video_gen", "video_upload"],
+      credit_kind: [
+        "image_gen",
+        "image_upload",
+        "video_gen",
+        "video_upload",
+        "ai_reply",
+      ],
       deal_status: ["open", "won", "lost"],
       dialer_mode: ["preview", "progressive", "predictive"],
       dialer_status: ["draft", "running", "paused", "completed"],
