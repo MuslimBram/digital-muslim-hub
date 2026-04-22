@@ -14,6 +14,250 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_assistants: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          model: string
+          name: string
+          system_prompt: string | null
+          temperature: number
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          model?: string
+          name?: string
+          system_prompt?: string | null
+          temperature?: number
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          model?: string
+          name?: string
+          system_prompt?: string | null
+          temperature?: number
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_assistants_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: true
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_brand_voice: {
+        Row: {
+          business_name: string | null
+          created_at: string
+          do_not_use: string | null
+          do_use: string | null
+          example_content: string | null
+          id: string
+          industry: string | null
+          language: string
+          target_audience: string | null
+          tone: string
+          updated_at: string
+          values: string | null
+          workspace_id: string
+        }
+        Insert: {
+          business_name?: string | null
+          created_at?: string
+          do_not_use?: string | null
+          do_use?: string | null
+          example_content?: string | null
+          id?: string
+          industry?: string | null
+          language?: string
+          target_audience?: string | null
+          tone?: string
+          updated_at?: string
+          values?: string | null
+          workspace_id: string
+        }
+        Update: {
+          business_name?: string | null
+          created_at?: string
+          do_not_use?: string | null
+          do_use?: string | null
+          example_content?: string | null
+          id?: string
+          industry?: string | null
+          language?: string
+          target_audience?: string | null
+          tone?: string
+          updated_at?: string
+          values?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_brand_voice_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: true
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_conversations_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_memory: {
+        Row: {
+          business_id: string | null
+          contact_id: string | null
+          created_at: string
+          id: string
+          key: string
+          scope: Database["public"]["Enums"]["memory_scope"]
+          source: string | null
+          updated_at: string
+          value: string
+          workspace_id: string
+        }
+        Insert: {
+          business_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          id?: string
+          key: string
+          scope?: Database["public"]["Enums"]["memory_scope"]
+          source?: string | null
+          updated_at?: string
+          value: string
+          workspace_id: string
+        }
+        Update: {
+          business_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          id?: string
+          key?: string
+          scope?: Database["public"]["Enums"]["memory_scope"]
+          source?: string | null
+          updated_at?: string
+          value?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_memory_business_id_fkey"
+            columns: ["business_id"]
+            isOneToOne: false
+            referencedRelation: "businesses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_memory_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_memory_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_messages: {
+        Row: {
+          citations: Json | null
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["ai_message_role"]
+          tokens_used: number | null
+          workspace_id: string
+        }
+        Insert: {
+          citations?: Json | null
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["ai_message_role"]
+          tokens_used?: number | null
+          workspace_id: string
+        }
+        Update: {
+          citations?: Json | null
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["ai_message_role"]
+          tokens_used?: number | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ai_messages_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       businesses: {
         Row: {
           created_at: string
@@ -386,6 +630,107 @@ export type Database = {
           },
           {
             foreignKeyName: "deals_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_chunks: {
+        Row: {
+          chunk_index: number
+          content: string
+          created_at: string
+          document_id: string
+          embedding: string | null
+          id: string
+          metadata: Json | null
+          workspace_id: string
+        }
+        Insert: {
+          chunk_index: number
+          content: string
+          created_at?: string
+          document_id: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json | null
+          workspace_id: string
+        }
+        Update: {
+          chunk_index?: number
+          content?: string
+          created_at?: string
+          document_id?: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "kb_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "kb_chunks_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kb_documents: {
+        Row: {
+          chunks_count: number
+          created_at: string
+          created_by: string | null
+          error_message: string | null
+          id: string
+          source_type: Database["public"]["Enums"]["kb_source_type"]
+          source_url: string | null
+          status: Database["public"]["Enums"]["kb_status"]
+          storage_path: string | null
+          title: string
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          chunks_count?: number
+          created_at?: string
+          created_by?: string | null
+          error_message?: string | null
+          id?: string
+          source_type: Database["public"]["Enums"]["kb_source_type"]
+          source_url?: string | null
+          status?: Database["public"]["Enums"]["kb_status"]
+          storage_path?: string | null
+          title: string
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          chunks_count?: number
+          created_at?: string
+          created_by?: string | null
+          error_message?: string | null
+          id?: string
+          source_type?: Database["public"]["Enums"]["kb_source_type"]
+          source_url?: string | null
+          status?: Database["public"]["Enums"]["kb_status"]
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kb_documents_workspace_id_fkey"
             columns: ["workspace_id"]
             isOneToOne: false
             referencedRelation: "workspaces"
@@ -805,12 +1150,28 @@ export type Database = {
         Args: { _user_id: string; _workspace_id: string }
         Returns: boolean
       }
+      match_kb_chunks: {
+        Args: {
+          match_count?: number
+          match_workspace_id: string
+          query_embedding: string
+          similarity_threshold?: number
+        }
+        Returns: {
+          content: string
+          document_id: string
+          document_title: string
+          id: string
+          similarity: number
+        }[]
+      }
       workspace_role_of: {
         Args: { _user_id: string; _workspace_id: string }
         Returns: Database["public"]["Enums"]["workspace_role"]
       }
     }
     Enums: {
+      ai_message_role: "system" | "user" | "assistant" | "tool"
       app_role: "admin" | "business" | "freelancer" | "partner"
       campaign_status:
         | "draft"
@@ -822,6 +1183,9 @@ export type Database = {
       contact_status: "lead" | "qualified" | "customer" | "churned"
       conversation_status: "open" | "pending" | "resolved" | "closed"
       deal_status: "open" | "won" | "lost"
+      kb_source_type: "website" | "pdf" | "text" | "social"
+      kb_status: "pending" | "processing" | "ready" | "failed"
+      memory_scope: "workspace" | "business" | "contact"
       message_direction: "inbound" | "outbound"
       ticket_priority: "low" | "normal" | "high" | "urgent"
       ticket_status: "new" | "open" | "pending" | "resolved" | "closed"
@@ -953,12 +1317,16 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      ai_message_role: ["system", "user", "assistant", "tool"],
       app_role: ["admin", "business", "freelancer", "partner"],
       campaign_status: ["draft", "scheduled", "running", "completed", "paused"],
       channel_type: ["whatsapp", "telegram", "email", "sms", "webchat"],
       contact_status: ["lead", "qualified", "customer", "churned"],
       conversation_status: ["open", "pending", "resolved", "closed"],
       deal_status: ["open", "won", "lost"],
+      kb_source_type: ["website", "pdf", "text", "social"],
+      kb_status: ["pending", "processing", "ready", "failed"],
+      memory_scope: ["workspace", "business", "contact"],
       message_direction: ["inbound", "outbound"],
       ticket_priority: ["low", "normal", "high", "urgent"],
       ticket_status: ["new", "open", "pending", "resolved", "closed"],
