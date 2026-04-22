@@ -19,6 +19,7 @@ import {
   CreditCard,
   Heart,
   Wallet as WalletIcon,
+  Plug,
 } from "lucide-react";
 import {
   Sidebar,
@@ -78,6 +79,7 @@ export function AppSidebar() {
   ];
   const system = [
     { to: "/app/settings", icon: Settings, label: t("nav.settings") },
+    { to: "/app/settings/integrations", icon: Plug, label: "Integrime" },
     { to: "/app/settings/billing", icon: CreditCard, label: "Faturimi" },
     { to: "/app/settings/wallet", icon: WalletIcon, label: "Wallet" },
     { to: "/app/donate", icon: Heart, label: "Mbështet" },
