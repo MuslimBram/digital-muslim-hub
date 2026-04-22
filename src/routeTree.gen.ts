@@ -29,6 +29,7 @@ import { Route as AppSettingsIndexRouteImport } from './routes/app.settings.inde
 import { Route as AppCallsIndexRouteImport } from './routes/app.calls.index'
 import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
 import { Route as AppSettingsWalletRouteImport } from './routes/app.settings.wallet'
+import { Route as AppSettingsIntegrationsRouteImport } from './routes/app.settings.integrations'
 import { Route as AppSettingsBillingRouteImport } from './routes/app.settings.billing'
 import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
 import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
@@ -140,6 +141,11 @@ const AppSettingsWalletRoute = AppSettingsWalletRouteImport.update({
   path: '/wallet',
   getParentRoute: () => AppSettingsRoute,
 } as any)
+const AppSettingsIntegrationsRoute = AppSettingsIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => AppSettingsRoute,
+} as any)
 const AppSettingsBillingRoute = AppSettingsBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
@@ -218,6 +224,7 @@ export interface FileRoutesByFullPath {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
@@ -247,6 +254,7 @@ export interface FileRoutesByTo {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai': typeof AppAiIndexRoute
   '/app/calls': typeof AppCallsIndexRoute
@@ -280,6 +288,7 @@ export interface FileRoutesById {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
@@ -314,6 +323,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/integrations'
     | '/app/settings/wallet'
     | '/app/ai/'
     | '/app/calls/'
@@ -343,6 +353,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/integrations'
     | '/app/settings/wallet'
     | '/app/ai'
     | '/app/calls'
@@ -375,6 +386,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/integrations'
     | '/app/settings/wallet'
     | '/app/ai/'
     | '/app/calls/'
@@ -530,6 +542,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsWalletRouteImport
       parentRoute: typeof AppSettingsRoute
     }
+    '/app/settings/integrations': {
+      id: '/app/settings/integrations'
+      path: '/integrations'
+      fullPath: '/app/settings/integrations'
+      preLoaderRoute: typeof AppSettingsIntegrationsRouteImport
+      parentRoute: typeof AppSettingsRoute
+    }
     '/app/settings/billing': {
       id: '/app/settings/billing'
       path: '/billing'
@@ -641,12 +660,14 @@ const AppCallsRouteWithChildren = AppCallsRoute._addFileChildren(
 
 interface AppSettingsRouteChildren {
   AppSettingsBillingRoute: typeof AppSettingsBillingRoute
+  AppSettingsIntegrationsRoute: typeof AppSettingsIntegrationsRoute
   AppSettingsWalletRoute: typeof AppSettingsWalletRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
 }
 
 const AppSettingsRouteChildren: AppSettingsRouteChildren = {
   AppSettingsBillingRoute: AppSettingsBillingRoute,
+  AppSettingsIntegrationsRoute: AppSettingsIntegrationsRoute,
   AppSettingsWalletRoute: AppSettingsWalletRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
 }
