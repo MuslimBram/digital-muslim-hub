@@ -52,9 +52,9 @@ function BillingPage() {
     const priceId = PLAN_PRICE_IDS[tier][cycle];
     await openCheckout({
       priceId,
-      quantity: 1,
       customerEmail: user.email ?? undefined,
-      customData: { userId: user.id, workspaceId: current.id, tier, cycle },
+      userId: user.id,
+      workspaceId: current.id,
       successUrl: `${window.location.origin}/app/settings/billing?checkout=success`,
     });
   };
@@ -90,7 +90,7 @@ function BillingPage() {
   if (unlimited) {
     return (
       <>
-        <PageHeader title="Faturimi" subtitle="Llogaria juaj ka qasje të pakufizuar." />
+        <PageHeader title="Faturimi" description="Llogaria juaj ka qasje të pakufizuar." />
         <div className="grid gap-4 p-6">
           <Card className="border-primary/30 bg-primary/5 p-6">
             <div className="flex items-center gap-3">
@@ -116,7 +116,7 @@ function BillingPage() {
     <>
       <PageHeader
         title="Faturimi & Plani"
-        subtitle="Menaxho abonimin, kreditë dhe faturat tua."
+        description="Menaxho abonimin, kreditë dhe faturat tua."
         actions={
           <Link to="/pricing">
             <Button variant="outline" size="sm">

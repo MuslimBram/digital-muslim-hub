@@ -62,7 +62,7 @@ function DonatePage() {
     <>
       <PageHeader
         title="Mbështet projektin"
-        subtitle="Donacionet ndihmojnë në zhvillimin dhe mirëmbajtjen e platformës."
+        description="Donacionet ndihmojnë në zhvillimin dhe mirëmbajtjen e platformës."
       />
 
       <div className="mx-auto max-w-2xl p-6">
