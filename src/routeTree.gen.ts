@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppReferralsRouteImport } from './routes/app.referrals'
 import { Route as AppInboxRouteImport } from './routes/app.inbox'
 import { Route as AppHelpdeskRouteImport } from './routes/app.helpdesk'
 import { Route as AppDonateRouteImport } from './routes/app.donate'
@@ -79,6 +80,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReferralsRoute = AppReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
   getParentRoute: () => AppRoute,
 } as any)
 const AppInboxRoute = AppInboxRouteImport.update({
@@ -243,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -279,6 +286,7 @@ export interface FileRoutesByTo {
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
@@ -316,6 +324,7 @@ export interface FileRoutesById {
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -356,6 +365,7 @@ export interface FileRouteTypes {
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
@@ -392,6 +402,7 @@ export interface FileRouteTypes {
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
@@ -428,6 +439,7 @@ export interface FileRouteTypes {
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
@@ -507,6 +519,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/referrals': {
+      id: '/app/referrals'
+      path: '/referrals'
+      fullPath: '/app/referrals'
+      preLoaderRoute: typeof AppReferralsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/inbox': {
@@ -797,6 +816,7 @@ interface AppRouteChildren {
   AppDonateRoute: typeof AppDonateRoute
   AppHelpdeskRoute: typeof AppHelpdeskRoute
   AppInboxRoute: typeof AppInboxRoute
+  AppReferralsRoute: typeof AppReferralsRoute
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
   AppCrmContactsRoute: typeof AppCrmContactsRoute
   AppCrmPipelineRoute: typeof AppCrmPipelineRoute
@@ -814,6 +834,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppDonateRoute: AppDonateRoute,
   AppHelpdeskRoute: AppHelpdeskRoute,
   AppInboxRoute: AppInboxRoute,
+  AppReferralsRoute: AppReferralsRoute,
   AppSettingsRoute: AppSettingsRouteWithChildren,
   AppCrmContactsRoute: AppCrmContactsRoute,
   AppCrmPipelineRoute: AppCrmPipelineRoute,
