@@ -8,6 +8,7 @@ import { Softphone } from "@/calls/components/Softphone";
 import { TrialBanner } from "@/components/TrialBanner";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { TrialExpiredOverlay } from "@/components/TrialExpiredOverlay";
+import { AssistantChat } from "@/components/AssistantChat";
 import { useWorkspaceAccess } from "@/hooks/useWorkspaceAccess";
 
 export const Route = createFileRoute("/app")({
@@ -53,6 +54,7 @@ function AppLayout() {
           </main>
         </div>
         <Softphone />
+        <AssistantChat />
         {access.blocked && <TrialExpiredOverlay reason={access.reason} />}
       </div>
     </SidebarProvider>
