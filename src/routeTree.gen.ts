@@ -27,7 +27,11 @@ import { Route as AppCallsIndexRouteImport } from './routes/app.calls.index'
 import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
 import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
 import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
+import { Route as AppCallsWallboardRouteImport } from './routes/app.calls.wallboard'
+import { Route as AppCallsSupervisorRouteImport } from './routes/app.calls.supervisor'
+import { Route as AppCallsRecordingsRouteImport } from './routes/app.calls.recordings'
 import { Route as AppCallsQueuesRouteImport } from './routes/app.calls.queues'
+import { Route as AppCallsIvrRouteImport } from './routes/app.calls.ivr'
 import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
 import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
 
@@ -121,9 +125,29 @@ const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
   path: '/crm/contacts',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCallsWallboardRoute = AppCallsWallboardRouteImport.update({
+  id: '/wallboard',
+  path: '/wallboard',
+  getParentRoute: () => AppCallsRoute,
+} as any)
+const AppCallsSupervisorRoute = AppCallsSupervisorRouteImport.update({
+  id: '/supervisor',
+  path: '/supervisor',
+  getParentRoute: () => AppCallsRoute,
+} as any)
+const AppCallsRecordingsRoute = AppCallsRecordingsRouteImport.update({
+  id: '/recordings',
+  path: '/recordings',
+  getParentRoute: () => AppCallsRoute,
+} as any)
 const AppCallsQueuesRoute = AppCallsQueuesRouteImport.update({
   id: '/queues',
   path: '/queues',
+  getParentRoute: () => AppCallsRoute,
+} as any)
+const AppCallsIvrRoute = AppCallsIvrRouteImport.update({
+  id: '/ivr',
+  path: '/ivr',
   getParentRoute: () => AppCallsRoute,
 } as any)
 const AppAiKnowledgeRoute = AppAiKnowledgeRouteImport.update({
@@ -154,7 +178,11 @@ export interface FileRoutesByFullPath {
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
   '/app/ai/knowledge': typeof AppAiKnowledgeRoute
+  '/app/calls/ivr': typeof AppCallsIvrRoute
   '/app/calls/queues': typeof AppCallsQueuesRoute
+  '/app/calls/recordings': typeof AppCallsRecordingsRoute
+  '/app/calls/supervisor': typeof AppCallsSupervisorRoute
+  '/app/calls/wallboard': typeof AppCallsWallboardRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai/': typeof AppAiIndexRoute
@@ -175,7 +203,11 @@ export interface FileRoutesByTo {
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
   '/app/ai/knowledge': typeof AppAiKnowledgeRoute
+  '/app/calls/ivr': typeof AppCallsIvrRoute
   '/app/calls/queues': typeof AppCallsQueuesRoute
+  '/app/calls/recordings': typeof AppCallsRecordingsRoute
+  '/app/calls/supervisor': typeof AppCallsSupervisorRoute
+  '/app/calls/wallboard': typeof AppCallsWallboardRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai': typeof AppAiIndexRoute
@@ -199,7 +231,11 @@ export interface FileRoutesById {
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
   '/app/ai/knowledge': typeof AppAiKnowledgeRoute
+  '/app/calls/ivr': typeof AppCallsIvrRoute
   '/app/calls/queues': typeof AppCallsQueuesRoute
+  '/app/calls/recordings': typeof AppCallsRecordingsRoute
+  '/app/calls/supervisor': typeof AppCallsSupervisorRoute
+  '/app/calls/wallboard': typeof AppCallsWallboardRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai/': typeof AppAiIndexRoute
@@ -224,7 +260,11 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/app/ai/brand-voice'
     | '/app/ai/knowledge'
+    | '/app/calls/ivr'
     | '/app/calls/queues'
+    | '/app/calls/recordings'
+    | '/app/calls/supervisor'
+    | '/app/calls/wallboard'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai/'
@@ -245,7 +285,11 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/app/ai/brand-voice'
     | '/app/ai/knowledge'
+    | '/app/calls/ivr'
     | '/app/calls/queues'
+    | '/app/calls/recordings'
+    | '/app/calls/supervisor'
+    | '/app/calls/wallboard'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai'
@@ -268,7 +312,11 @@ export interface FileRouteTypes {
     | '/auth/signup'
     | '/app/ai/brand-voice'
     | '/app/ai/knowledge'
+    | '/app/calls/ivr'
     | '/app/calls/queues'
+    | '/app/calls/recordings'
+    | '/app/calls/supervisor'
+    | '/app/calls/wallboard'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai/'
@@ -409,11 +457,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCrmContactsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/calls/wallboard': {
+      id: '/app/calls/wallboard'
+      path: '/wallboard'
+      fullPath: '/app/calls/wallboard'
+      preLoaderRoute: typeof AppCallsWallboardRouteImport
+      parentRoute: typeof AppCallsRoute
+    }
+    '/app/calls/supervisor': {
+      id: '/app/calls/supervisor'
+      path: '/supervisor'
+      fullPath: '/app/calls/supervisor'
+      preLoaderRoute: typeof AppCallsSupervisorRouteImport
+      parentRoute: typeof AppCallsRoute
+    }
+    '/app/calls/recordings': {
+      id: '/app/calls/recordings'
+      path: '/recordings'
+      fullPath: '/app/calls/recordings'
+      preLoaderRoute: typeof AppCallsRecordingsRouteImport
+      parentRoute: typeof AppCallsRoute
+    }
     '/app/calls/queues': {
       id: '/app/calls/queues'
       path: '/queues'
       fullPath: '/app/calls/queues'
       preLoaderRoute: typeof AppCallsQueuesRouteImport
+      parentRoute: typeof AppCallsRoute
+    }
+    '/app/calls/ivr': {
+      id: '/app/calls/ivr'
+      path: '/ivr'
+      fullPath: '/app/calls/ivr'
+      preLoaderRoute: typeof AppCallsIvrRouteImport
       parentRoute: typeof AppCallsRoute
     }
     '/app/ai/knowledge': {
@@ -448,12 +524,20 @@ const AppAiRouteChildren: AppAiRouteChildren = {
 const AppAiRouteWithChildren = AppAiRoute._addFileChildren(AppAiRouteChildren)
 
 interface AppCallsRouteChildren {
+  AppCallsIvrRoute: typeof AppCallsIvrRoute
   AppCallsQueuesRoute: typeof AppCallsQueuesRoute
+  AppCallsRecordingsRoute: typeof AppCallsRecordingsRoute
+  AppCallsSupervisorRoute: typeof AppCallsSupervisorRoute
+  AppCallsWallboardRoute: typeof AppCallsWallboardRoute
   AppCallsIndexRoute: typeof AppCallsIndexRoute
 }
 
 const AppCallsRouteChildren: AppCallsRouteChildren = {
+  AppCallsIvrRoute: AppCallsIvrRoute,
   AppCallsQueuesRoute: AppCallsQueuesRoute,
+  AppCallsRecordingsRoute: AppCallsRecordingsRoute,
+  AppCallsSupervisorRoute: AppCallsSupervisorRoute,
+  AppCallsWallboardRoute: AppCallsWallboardRoute,
   AppCallsIndexRoute: AppCallsIndexRoute,
 }
 
