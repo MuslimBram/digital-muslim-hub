@@ -23,3 +23,24 @@ verify_jwt = false
 
 [functions.paypal-capture-order]
 verify_jwt = false
+
+[functions.wh-whatsapp]
+verify_jwt = false
+
+[functions.wh-telegram]
+verify_jwt = false
+
+[functions.wh-twilio]
+verify_jwt = false
+
+[functions.wh-resend]
+verify_jwt = false
+
+[functions.webhook-dispatcher]
+verify_jwt = false
+
+[functions.integrations-manage]
+verify_jwt = true
+
+[functions.send-message]
+verify_jwt = true
