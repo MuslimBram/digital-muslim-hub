@@ -276,8 +276,13 @@ function AddWebhookDialog({ workspaceId, onSaved }: { workspaceId?: string; onSa
     const secret = crypto.getRandomValues(new Uint8Array(24));
     const secretHex = Array.from(secret).map((b) => b.toString(16).padStart(2, "0")).join("");
     const { error } = await supabase.from("webhook_endpoints").insert({
-      workspace_id: workspaceId, name, url, signing_secret: secretHex, events: selected, is_active: true,
-    });
+      workspace_id: workspaceId,
+      name,
+      url,
+      signing_secret: secretHex,
+      events: selected as any,
+      is_active: true,
+    } as any);
     if (error) toast.error(error.message);
     else { toast.success("U krijua"); setOpen(false); setName(""); setUrl(""); onSaved(); }
   };
