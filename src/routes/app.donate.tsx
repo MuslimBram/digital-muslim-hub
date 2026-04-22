@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart, Sparkles, Loader2 } from "lucide-react";
 import { z } from "zod";
 import { PageHeader } from "@/components/PageHeader";
@@ -29,6 +29,27 @@ function DonatePage() {
   const [custom, setCustom] = useState<string>("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    const token = params.get("token"); // PayPal returns the order id as `token`
+    if (status === "success" && token) {
+      supabase.functions
+        .invoke("paypal-capture-order", { body: { orderId: token } })
+        .then(({ data, error }) => {
+          if (error || data?.status !== "completed") {
+            toast.error("Donacioni nuk u konfirmua. Kontakto suportin.");
+          } else {
+            toast.success("Faleminderit për donacionin tënd! 💚");
+          }
+          window.history.replaceState({}, "", "/app/donate");
+        });
+    } else if (status === "cancel") {
+      toast.info("Donacioni u anulua.");
+      window.history.replaceState({}, "", "/app/donate");
+    }
+  }, []);
 
   const finalAmount = custom ? Number(custom) : amount;
 

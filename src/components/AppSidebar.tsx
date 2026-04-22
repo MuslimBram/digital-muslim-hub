@@ -16,6 +16,8 @@ import {
   BookOpen,
   MessageCircle,
   Phone,
+  CreditCard,
+  Heart,
 } from "lucide-react";
 import {
   Sidebar,
@@ -75,6 +77,8 @@ export function AppSidebar() {
   ];
   const system = [
     { to: "/app/settings", icon: Settings, label: t("nav.settings") },
+    { to: "/app/settings/billing", icon: CreditCard, label: "Faturimi" },
+    { to: "/app/donate", icon: Heart, label: "Mbështet" },
   ];
 
   const isActive = (to: string) => location.pathname === to || location.pathname.startsWith(to + "/");

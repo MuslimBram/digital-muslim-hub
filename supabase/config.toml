@@ -17,3 +17,9 @@ verify_jwt = false
 
 [functions.get-paddle-price]
 verify_jwt = false
+
+[functions.paypal-create-order]
+verify_jwt = false
+
+[functions.paypal-capture-order]
+verify_jwt = false
