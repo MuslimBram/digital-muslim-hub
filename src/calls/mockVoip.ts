@@ -167,11 +167,13 @@ export const mockVoipProvider: CallProvider = {
   },
 
   async logEvent({ callId, workspaceId, type, payload }) {
-    await supabase.from("call_events").insert({
-      call_id: callId,
-      workspace_id: workspaceId,
-      event_type: type,
-      payload: payload ?? {},
-    });
+    await supabase.from("call_events").insert([
+      {
+        call_id: callId,
+        workspace_id: workspaceId,
+        event_type: type,
+        payload: payload ?? {},
+      },
+    ]);
   },
 };
