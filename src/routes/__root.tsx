@@ -1,6 +1,10 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { I18nProvider } from "@/i18n/I18nProvider";
+import { AuthProvider } from "@/auth/AuthProvider";
+import { WorkspaceProvider } from "@/auth/WorkspaceProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -29,14 +33,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Muslimi Digital — All-in-one SaaS për bizneset moderne" },
+      { name: "description", content: "CRM, Unified Inbox, Marketing Automation, Helpdesk dhe AI në një platformë." },
+      { name: "author", content: "Muslimi Digital" },
+      { property: "og:title", content: "Muslimi Digital" },
+      { property: "og:description", content: "Platforma SaaS që menaxhon, automatizon dhe rrit biznesin tënd." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@MuslimiDigital" },
     ],
     links: [
       {
@@ -65,5 +69,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return <Outlet />;
+  return (
+    <I18nProvider>
+      <AuthProvider>
+        <WorkspaceProvider>
+          <Outlet />
+          <Toaster richColors position="top-right" />
+        </WorkspaceProvider>
+      </AuthProvider>
+    </I18nProvider>
+  );
 }

@@ -9,38 +9,214 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppInboxRouteImport } from './routes/app.inbox'
+import { Route as AppHelpdeskRouteImport } from './routes/app.helpdesk'
+import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCampaignsRouteImport } from './routes/app.campaigns'
+import { Route as AppAutomationRouteImport } from './routes/app.automation'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
+import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
+import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInboxRoute = AppInboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHelpdeskRoute = AppHelpdeskRouteImport.update({
+  id: '/helpdesk',
+  path: '/helpdesk',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCampaignsRoute = AppCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAutomationRoute = AppAutomationRouteImport.update({
+  id: '/automation',
+  path: '/automation',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCrmPipelineRoute = AppCrmPipelineRouteImport.update({
+  id: '/crm/pipeline',
+  path: '/crm/pipeline',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
+  id: '/crm/contacts',
+  path: '/crm/contacts',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/automation': typeof AppAutomationRoute
+  '/app/campaigns': typeof AppCampaignsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/helpdesk': typeof AppHelpdeskRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/automation': typeof AppAutomationRoute
+  '/app/campaigns': typeof AppCampaignsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/helpdesk': typeof AppHelpdeskRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
+  '/app/automation': typeof AppAutomationRoute
+  '/app/campaigns': typeof AppCampaignsRoute
+  '/app/dashboard': typeof AppDashboardRoute
+  '/app/helpdesk': typeof AppHelpdeskRoute
+  '/app/inbox': typeof AppInboxRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/analytics'
+    | '/app/automation'
+    | '/app/campaigns'
+    | '/app/dashboard'
+    | '/app/helpdesk'
+    | '/app/inbox'
+    | '/app/settings'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/analytics'
+    | '/app/automation'
+    | '/app/campaigns'
+    | '/app/dashboard'
+    | '/app/helpdesk'
+    | '/app/inbox'
+    | '/app/settings'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/analytics'
+    | '/app/automation'
+    | '/app/campaigns'
+    | '/app/dashboard'
+    | '/app/helpdesk'
+    | '/app/inbox'
+    | '/app/settings'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,21 +224,129 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/inbox': {
+      id: '/app/inbox'
+      path: '/inbox'
+      fullPath: '/app/inbox'
+      preLoaderRoute: typeof AppInboxRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/helpdesk': {
+      id: '/app/helpdesk'
+      path: '/helpdesk'
+      fullPath: '/app/helpdesk'
+      preLoaderRoute: typeof AppHelpdeskRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/campaigns': {
+      id: '/app/campaigns'
+      path: '/campaigns'
+      fullPath: '/app/campaigns'
+      preLoaderRoute: typeof AppCampaignsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/automation': {
+      id: '/app/automation'
+      path: '/automation'
+      fullPath: '/app/automation'
+      preLoaderRoute: typeof AppAutomationRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/crm/pipeline': {
+      id: '/app/crm/pipeline'
+      path: '/crm/pipeline'
+      fullPath: '/app/crm/pipeline'
+      preLoaderRoute: typeof AppCrmPipelineRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/crm/contacts': {
+      id: '/app/crm/contacts'
+      path: '/crm/contacts'
+      fullPath: '/app/crm/contacts'
+      preLoaderRoute: typeof AppCrmContactsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppAutomationRoute: typeof AppAutomationRoute
+  AppCampaignsRoute: typeof AppCampaignsRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppHelpdeskRoute: typeof AppHelpdeskRoute
+  AppInboxRoute: typeof AppInboxRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppCrmContactsRoute: typeof AppCrmContactsRoute
+  AppCrmPipelineRoute: typeof AppCrmPipelineRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppAutomationRoute: AppAutomationRoute,
+  AppCampaignsRoute: AppCampaignsRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppHelpdeskRoute: AppHelpdeskRoute,
+  AppInboxRoute: AppInboxRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppCrmContactsRoute: AppCrmContactsRoute,
+  AppCrmPipelineRoute: AppCrmPipelineRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
+interface AuthRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthSignupRoute: typeof AuthSignupRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+  AuthSignupRoute: AuthSignupRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
