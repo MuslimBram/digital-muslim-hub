@@ -1076,6 +1076,71 @@ export type Database = {
         }
         Relationships: []
       }
+      engine_runs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"]
+          error_message: string | null
+          id: string
+          insights: Json
+          metrics: Json
+          model: string | null
+          recommendations: Json
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"]
+          summary: string | null
+          triggered_by: string
+          triggered_by_user: string | null
+          workspace_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          engine: Database["public"]["Enums"]["engine_type"]
+          error_message?: string | null
+          id?: string
+          insights?: Json
+          metrics?: Json
+          model?: string | null
+          recommendations?: Json
+          score?: number | null
+          status?: Database["public"]["Enums"]["engine_run_status"]
+          summary?: string | null
+          triggered_by?: string
+          triggered_by_user?: string | null
+          workspace_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          engine?: Database["public"]["Enums"]["engine_type"]
+          error_message?: string | null
+          id?: string
+          insights?: Json
+          metrics?: Json
+          model?: string | null
+          recommendations?: Json
+          score?: number | null
+          status?: Database["public"]["Enums"]["engine_run_status"]
+          summary?: string | null
+          triggered_by?: string
+          triggered_by_user?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       integration_events: {
         Row: {
           created_at: string
@@ -2209,7 +2274,267 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      v_engine_demand: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_funnel: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_growth: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_personalization: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_pricing: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_retention: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_revenue: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_viral: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      v_engine_workforce: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          duration_ms: number | null
+          engine: Database["public"]["Enums"]["engine_type"] | null
+          error_message: string | null
+          id: string | null
+          insights: Json | null
+          metrics: Json | null
+          model: string | null
+          recommendations: Json | null
+          score: number | null
+          status: Database["public"]["Enums"]["engine_run_status"] | null
+          summary: string | null
+          triggered_by: string | null
+          triggered_by_user: string | null
+          workspace_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "engine_runs_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       emit_integration_event: {
@@ -2342,6 +2667,17 @@ export type Database = {
       dialer_mode: "preview" | "progressive" | "predictive"
       dialer_status: "draft" | "running" | "paused" | "completed"
       donation_status: "pending" | "completed" | "failed" | "refunded"
+      engine_run_status: "pending" | "running" | "completed" | "failed"
+      engine_type:
+        | "growth"
+        | "revenue"
+        | "pricing"
+        | "funnel"
+        | "retention"
+        | "viral"
+        | "personalization"
+        | "demand"
+        | "workforce"
       integration_status: "pending" | "active" | "error" | "disabled"
       integration_type:
         | "whatsapp_meta"
@@ -2581,6 +2917,18 @@ export const Constants = {
       dialer_mode: ["preview", "progressive", "predictive"],
       dialer_status: ["draft", "running", "paused", "completed"],
       donation_status: ["pending", "completed", "failed", "refunded"],
+      engine_run_status: ["pending", "running", "completed", "failed"],
+      engine_type: [
+        "growth",
+        "revenue",
+        "pricing",
+        "funnel",
+        "retention",
+        "viral",
+        "personalization",
+        "demand",
+        "workforce",
+      ],
       integration_status: ["pending", "active", "error", "disabled"],
       integration_type: [
         "whatsapp_meta",
