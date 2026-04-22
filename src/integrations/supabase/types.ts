@@ -1076,6 +1076,41 @@ export type Database = {
         }
         Relationships: []
       }
+      integration_events: {
+        Row: {
+          created_at: string
+          event_type: Database["public"]["Enums"]["webhook_event_type"]
+          id: string
+          payload: Json
+          source: string | null
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: Database["public"]["Enums"]["webhook_event_type"]
+          id?: string
+          payload?: Json
+          source?: string | null
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: Database["public"]["Enums"]["webhook_event_type"]
+          id?: string
+          payload?: Json
+          source?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_events_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ivr_flows: {
         Row: {
           business_id: string | null
@@ -1875,6 +1910,135 @@ export type Database = {
         }
         Relationships: []
       }
+      webhook_deliveries: {
+        Row: {
+          attempt: number
+          created_at: string
+          duration_ms: number | null
+          endpoint_id: string
+          error_message: string | null
+          event_id: string | null
+          event_type: Database["public"]["Enums"]["webhook_event_type"]
+          id: string
+          next_attempt_at: string
+          payload: Json
+          response_body: string | null
+          response_status: number | null
+          status: Database["public"]["Enums"]["webhook_delivery_status"]
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          attempt?: number
+          created_at?: string
+          duration_ms?: number | null
+          endpoint_id: string
+          error_message?: string | null
+          event_id?: string | null
+          event_type: Database["public"]["Enums"]["webhook_event_type"]
+          id?: string
+          next_attempt_at?: string
+          payload: Json
+          response_body?: string | null
+          response_status?: number | null
+          status?: Database["public"]["Enums"]["webhook_delivery_status"]
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          attempt?: number
+          created_at?: string
+          duration_ms?: number | null
+          endpoint_id?: string
+          error_message?: string | null
+          event_id?: string | null
+          event_type?: Database["public"]["Enums"]["webhook_event_type"]
+          id?: string
+          next_attempt_at?: string
+          payload?: Json
+          response_body?: string | null
+          response_status?: number | null
+          status?: Database["public"]["Enums"]["webhook_delivery_status"]
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_deliveries_endpoint_id_fkey"
+            columns: ["endpoint_id"]
+            isOneToOne: false
+            referencedRelation: "webhook_endpoints"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "integration_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "webhook_deliveries_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webhook_endpoints: {
+        Row: {
+          consecutive_failures: number
+          created_at: string
+          created_by: string | null
+          events: Database["public"]["Enums"]["webhook_event_type"][]
+          id: string
+          is_active: boolean
+          last_delivery_at: string | null
+          name: string
+          signing_secret: string
+          updated_at: string
+          url: string
+          workspace_id: string
+        }
+        Insert: {
+          consecutive_failures?: number
+          created_at?: string
+          created_by?: string | null
+          events?: Database["public"]["Enums"]["webhook_event_type"][]
+          id?: string
+          is_active?: boolean
+          last_delivery_at?: string | null
+          name: string
+          signing_secret: string
+          updated_at?: string
+          url: string
+          workspace_id: string
+        }
+        Update: {
+          consecutive_failures?: number
+          created_at?: string
+          created_by?: string | null
+          events?: Database["public"]["Enums"]["webhook_event_type"][]
+          id?: string
+          is_active?: boolean
+          last_delivery_at?: string | null
+          name?: string
+          signing_secret?: string
+          updated_at?: string
+          url?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webhook_endpoints_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       workflows: {
         Row: {
           created_at: string
@@ -1912,6 +2076,68 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "workflows_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workspace_integrations: {
+        Row: {
+          config: Json
+          created_at: string
+          created_by: string | null
+          credentials_ciphertext: string | null
+          credentials_iv: string | null
+          credentials_tag: string | null
+          display_name: string
+          error_message: string | null
+          id: string
+          inbound_secret: string | null
+          last_event_at: string | null
+          status: Database["public"]["Enums"]["integration_status"]
+          type: Database["public"]["Enums"]["integration_type"]
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          credentials_ciphertext?: string | null
+          credentials_iv?: string | null
+          credentials_tag?: string | null
+          display_name: string
+          error_message?: string | null
+          id?: string
+          inbound_secret?: string | null
+          last_event_at?: string | null
+          status?: Database["public"]["Enums"]["integration_status"]
+          type: Database["public"]["Enums"]["integration_type"]
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          created_by?: string | null
+          credentials_ciphertext?: string | null
+          credentials_iv?: string | null
+          credentials_tag?: string | null
+          display_name?: string
+          error_message?: string | null
+          id?: string
+          inbound_secret?: string | null
+          last_event_at?: string | null
+          status?: Database["public"]["Enums"]["integration_status"]
+          type?: Database["public"]["Enums"]["integration_type"]
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workspace_integrations_workspace_id_fkey"
             columns: ["workspace_id"]
             isOneToOne: false
             referencedRelation: "workspaces"
@@ -1986,6 +2212,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      emit_integration_event: {
+        Args: {
+          _event_type: Database["public"]["Enums"]["webhook_event_type"]
+          _payload?: Json
+          _source?: string
+          _workspace_id: string
+        }
+        Returns: string
+      }
       generate_referral_code: { Args: { _user_id: string }; Returns: string }
       get_ai_replies_used_today: {
         Args: { _workspace_id: string }
@@ -2107,6 +2342,14 @@ export type Database = {
       dialer_mode: "preview" | "progressive" | "predictive"
       dialer_status: "draft" | "running" | "paused" | "completed"
       donation_status: "pending" | "completed" | "failed" | "refunded"
+      integration_status: "pending" | "active" | "error" | "disabled"
+      integration_type:
+        | "whatsapp_meta"
+        | "telegram"
+        | "twilio_sms"
+        | "resend_email"
+        | "instagram"
+        | "facebook_messenger"
       ivr_node_type:
         | "menu"
         | "play"
@@ -2135,6 +2378,29 @@ export type Database = {
         | "donation_received"
         | "withdrawal"
         | "adjustment"
+      webhook_delivery_status: "pending" | "success" | "failed" | "dead"
+      webhook_event_type:
+        | "message.received"
+        | "message.sent"
+        | "message.delivered"
+        | "message.failed"
+        | "conversation.created"
+        | "conversation.assigned"
+        | "conversation.closed"
+        | "contact.created"
+        | "contact.updated"
+        | "deal.created"
+        | "deal.stage_changed"
+        | "deal.won"
+        | "deal.lost"
+        | "ticket.created"
+        | "ticket.resolved"
+        | "call.started"
+        | "call.ended"
+        | "call.missed"
+        | "campaign.completed"
+        | "payment.received"
+        | "kb.indexed"
       workspace_role: "owner" | "admin" | "member" | "viewer"
     }
     CompositeTypes: {
@@ -2315,6 +2581,15 @@ export const Constants = {
       dialer_mode: ["preview", "progressive", "predictive"],
       dialer_status: ["draft", "running", "paused", "completed"],
       donation_status: ["pending", "completed", "failed", "refunded"],
+      integration_status: ["pending", "active", "error", "disabled"],
+      integration_type: [
+        "whatsapp_meta",
+        "telegram",
+        "twilio_sms",
+        "resend_email",
+        "instagram",
+        "facebook_messenger",
+      ],
       ivr_node_type: [
         "menu",
         "play",
@@ -2345,6 +2620,30 @@ export const Constants = {
         "donation_received",
         "withdrawal",
         "adjustment",
+      ],
+      webhook_delivery_status: ["pending", "success", "failed", "dead"],
+      webhook_event_type: [
+        "message.received",
+        "message.sent",
+        "message.delivered",
+        "message.failed",
+        "conversation.created",
+        "conversation.assigned",
+        "conversation.closed",
+        "contact.created",
+        "contact.updated",
+        "deal.created",
+        "deal.stage_changed",
+        "deal.won",
+        "deal.lost",
+        "ticket.created",
+        "ticket.resolved",
+        "call.started",
+        "call.ended",
+        "call.missed",
+        "campaign.completed",
+        "payment.received",
+        "kb.indexed",
       ],
       workspace_role: ["owner", "admin", "member", "viewer"],
     },
