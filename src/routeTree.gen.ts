@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
@@ -35,6 +36,11 @@ import { Route as AppCallsIvrRouteImport } from './routes/app.calls.ivr'
 import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
 import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
 
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -165,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/campaigns': typeof AppCampaignsRoute
@@ -218,6 +226,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/pricing'
     | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/pricing'
     | '/app/analytics'
     | '/app/automation'
     | '/app/campaigns'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/pricing'
     | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
@@ -327,10 +339,18 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
+  PricingRoute: typeof PricingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -591,6 +611,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
+  PricingRoute: PricingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
