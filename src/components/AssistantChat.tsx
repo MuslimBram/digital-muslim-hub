@@ -4,7 +4,6 @@ import { Bot, Send, Sparkles, ShieldAlert, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/auth/AuthProvider";
@@ -173,7 +172,7 @@ export function AssistantChat() {
             </div>
           </header>
 
-          <ScrollArea className="flex-1 px-4" viewportRef={scrollRef}>
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-4">
             <div className="flex flex-col gap-3 py-4">
               {messages.length === 0 && (
                 <div className="rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
@@ -227,7 +226,7 @@ export function AssistantChat() {
                 </div>
               ))}
             </div>
-          </ScrollArea>
+          </div>
 
           <form
             onSubmit={(e) => {
