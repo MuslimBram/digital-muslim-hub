@@ -73,7 +73,7 @@ function PricingPage() {
             >
               {c.label}
               {c.sub && (
-                <span className={`ml-1 ${cycle === c.key ? "text-primary-foreground/80" : "text-emerald-500"}`}>
+                <span className={`ml-1 ${cycle === c.key ? "text-primary-foreground/80" : "text-primary"}`}>
                   {c.sub}
                 </span>
               )}
@@ -110,7 +110,7 @@ function PricingPage() {
                     <div className="mt-1 text-xs text-muted-foreground">
                       €{total.toFixed(0)} faturuar tani
                       {CYCLE_DISCOUNT[cycle] > 0 && (
-                        <span className="ml-1 text-emerald-500">
+                        <span className="ml-1 text-primary">
                           (kursim ~€{Math.round(saving / 12 * (cycle === "annual" ? 12 : cycle === "semiannual" ? 6 : 3))})
                         </span>
                       )}
