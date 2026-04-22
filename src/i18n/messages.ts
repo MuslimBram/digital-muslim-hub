@@ -66,6 +66,10 @@ const sq: Dict = {
   "nav.automation": "Automation",
   "nav.analytics": "Analitika",
   "nav.settings": "Cilësimet",
+  "nav.ai": "AI Brain",
+  "nav.ai.chat": "Bisedo me AI",
+  "nav.ai.knowledge": "Baza e Dijes",
+  "nav.ai.brand": "Toni i Brendit",
 
   // Dashboard
   "dash.title": "Paneli kryesor",
@@ -92,6 +96,42 @@ const sq: Dict = {
   // Empty states
   "empty.comingSoon": "Së shpejti",
   "empty.module": "Ky modul është gati në fazën tjetër.",
+
+  // AI
+  "ai.chat.title": "Bisedo me AI Brain",
+  "ai.chat.placeholder": "Pyet AI-n çdo gjë për biznesin tënd...",
+  "ai.chat.empty.title": "Fillo një bisedë",
+  "ai.chat.empty.desc": "AI Brain njeh biznesin tënd, kontaktet dhe Bazën e Dijes.",
+  "ai.chat.thinking": "Duke menduar...",
+  "ai.chat.new": "Bisedë e re",
+  "ai.chat.history": "Bisedat e mëparshme",
+  "ai.kb.title": "Baza e Dijes",
+  "ai.kb.desc": "Burimet që AI përdor për t'iu përgjigjur pyetjeve.",
+  "ai.kb.add": "Shto burim",
+  "ai.kb.scanUrl": "Skano website",
+  "ai.kb.uploadPdf": "Ngarko PDF",
+  "ai.kb.addText": "Shto tekst",
+  "ai.kb.url.placeholder": "https://shembull.com",
+  "ai.kb.text.title": "Titulli",
+  "ai.kb.text.content": "Përmbajtja",
+  "ai.kb.empty": "Asnjë burim ende. Shto të parin për të aktivizuar AI me kontekst!",
+  "ai.kb.status.pending": "Në pritje",
+  "ai.kb.status.processing": "Duke procesuar",
+  "ai.kb.status.ready": "Gati",
+  "ai.kb.status.failed": "Dështoi",
+  "ai.kb.chunks": "copëza",
+  "ai.brand.title": "Toni i Brendit",
+  "ai.brand.desc": "Mësoji AI si të flasë në emrin e biznesit tënd.",
+  "ai.brand.businessName": "Emri i biznesit",
+  "ai.brand.industry": "Industria",
+  "ai.brand.tone": "Toni",
+  "ai.brand.values": "Vlerat",
+  "ai.brand.audience": "Audienca e synuar",
+  "ai.brand.language": "Gjuha",
+  "ai.brand.doUse": "Përdor gjithmonë",
+  "ai.brand.doNotUse": "Mos përdor kurrë",
+  "ai.brand.example": "Shembull përmbajtje (opsionale)",
+  "ai.brand.saved": "Toni u ruajt",
 };
 
 const en: Dict = {
