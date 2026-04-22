@@ -112,7 +112,7 @@ function CallsOverview() {
       <PageHeader
         title={t("calls.overview.title")}
         description={t("calls.overview.desc")}
-        action={
+        actions={
           <Button onClick={simulateInbound} variant="outline">
             <PhoneIncoming className="mr-2 h-4 w-4" /> {t("calls.simulateInbound")}
           </Button>

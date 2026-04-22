@@ -127,13 +127,15 @@ function IvrPage() {
       toast.error("JSON config i pavlefshëm");
       return;
     }
-    const { error } = await supabase.from("ivr_nodes").insert({
-      workspace_id: current.id,
-      flow_id: activeFlow,
-      type: nodeForm.type,
-      label: nodeForm.label || nodeForm.type,
-      config: parsed,
-    });
+    const { error } = await supabase.from("ivr_nodes").insert([
+      {
+        workspace_id: current.id,
+        flow_id: activeFlow,
+        type: nodeForm.type,
+        label: nodeForm.label || nodeForm.type,
+        config: parsed as never,
+      },
+    ]);
     if (error) {
       toast.error(error.message);
       return;
@@ -155,7 +157,7 @@ function IvrPage() {
       <PageHeader
         title={t("calls.ivr.title")}
         description={t("calls.ivr.desc")}
-        action={
+        actions={
           <Dialog open={openNew} onOpenChange={setOpenNew}>
             <DialogTrigger asChild>
               <Button>
