@@ -15,6 +15,7 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppInboxRouteImport } from './routes/app.inbox'
 import { Route as AppHelpdeskRouteImport } from './routes/app.helpdesk'
 import { Route as AppDonateRouteImport } from './routes/app.donate'
@@ -68,6 +69,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppInboxRoute = AppInboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
@@ -114,9 +120,9 @@ const AppAiRoute = AppAiRouteImport.update({
   getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => AppRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppSettingsRoute,
 } as any)
 const AppCallsIndexRoute = AppCallsIndexRouteImport.update({
   id: '/',
@@ -129,9 +135,9 @@ const AppAiIndexRoute = AppAiIndexRouteImport.update({
   getParentRoute: () => AppAiRoute,
 } as any)
 const AppSettingsBillingRoute = AppSettingsBillingRouteImport.update({
-  id: '/settings/billing',
-  path: '/settings/billing',
-  getParentRoute: () => AppRoute,
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AppSettingsRoute,
 } as any)
 const AppCrmPipelineRoute = AppCrmPipelineRouteImport.update({
   id: '/crm/pipeline',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
@@ -252,6 +259,7 @@ export interface FileRoutesById {
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
@@ -284,6 +292,7 @@ export interface FileRouteTypes {
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
@@ -342,6 +351,7 @@ export interface FileRouteTypes {
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
@@ -410,6 +420,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/inbox': {
       id: '/app/inbox'
       path: '/inbox'
@@ -475,10 +492,10 @@ declare module '@tanstack/react-router' {
     }
     '/app/settings/': {
       id: '/app/settings/'
-      path: '/settings'
+      path: '/'
       fullPath: '/app/settings/'
       preLoaderRoute: typeof AppSettingsIndexRouteImport
-      parentRoute: typeof AppRoute
+      parentRoute: typeof AppSettingsRoute
     }
     '/app/calls/': {
       id: '/app/calls/'
@@ -496,10 +513,10 @@ declare module '@tanstack/react-router' {
     }
     '/app/settings/billing': {
       id: '/app/settings/billing'
-      path: '/settings/billing'
+      path: '/billing'
       fullPath: '/app/settings/billing'
       preLoaderRoute: typeof AppSettingsBillingRouteImport
-      parentRoute: typeof AppRoute
+      parentRoute: typeof AppSettingsRoute
     }
     '/app/crm/pipeline': {
       id: '/app/crm/pipeline'
@@ -603,6 +620,20 @@ const AppCallsRouteWithChildren = AppCallsRoute._addFileChildren(
   AppCallsRouteChildren,
 )
 
+interface AppSettingsRouteChildren {
+  AppSettingsBillingRoute: typeof AppSettingsBillingRoute
+  AppSettingsIndexRoute: typeof AppSettingsIndexRoute
+}
+
+const AppSettingsRouteChildren: AppSettingsRouteChildren = {
+  AppSettingsBillingRoute: AppSettingsBillingRoute,
+  AppSettingsIndexRoute: AppSettingsIndexRoute,
+}
+
+const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
+  AppSettingsRouteChildren,
+)
+
 interface AppRouteChildren {
   AppAiRoute: typeof AppAiRouteWithChildren
   AppAnalyticsRoute: typeof AppAnalyticsRoute
@@ -613,10 +644,9 @@ interface AppRouteChildren {
   AppDonateRoute: typeof AppDonateRoute
   AppHelpdeskRoute: typeof AppHelpdeskRoute
   AppInboxRoute: typeof AppInboxRoute
+  AppSettingsRoute: typeof AppSettingsRouteWithChildren
   AppCrmContactsRoute: typeof AppCrmContactsRoute
   AppCrmPipelineRoute: typeof AppCrmPipelineRoute
-  AppSettingsBillingRoute: typeof AppSettingsBillingRoute
-  AppSettingsIndexRoute: typeof AppSettingsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -629,10 +659,9 @@ const AppRouteChildren: AppRouteChildren = {
   AppDonateRoute: AppDonateRoute,
   AppHelpdeskRoute: AppHelpdeskRoute,
   AppInboxRoute: AppInboxRoute,
+  AppSettingsRoute: AppSettingsRouteWithChildren,
   AppCrmContactsRoute: AppCrmContactsRoute,
   AppCrmPipelineRoute: AppCrmPipelineRoute,
-  AppSettingsBillingRoute: AppSettingsBillingRoute,
-  AppSettingsIndexRoute: AppSettingsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
