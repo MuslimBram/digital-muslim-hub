@@ -1660,7 +1660,7 @@ export type Database = {
         | "on_call"
         | "wrap_up"
       ai_message_role: "system" | "user" | "assistant" | "tool"
-      app_role: "admin" | "business" | "freelancer" | "partner"
+      app_role: "admin" | "business" | "freelancer" | "partner" | "owner"
       call_direction: "inbound" | "outbound" | "internal"
       call_event_type:
         | "ringing"
@@ -1848,7 +1848,7 @@ export const Constants = {
         "wrap_up",
       ],
       ai_message_role: ["system", "user", "assistant", "tool"],
-      app_role: ["admin", "business", "freelancer", "partner"],
+      app_role: ["admin", "business", "freelancer", "partner", "owner"],
       call_direction: ["inbound", "outbound", "internal"],
       call_event_type: [
         "ringing",
