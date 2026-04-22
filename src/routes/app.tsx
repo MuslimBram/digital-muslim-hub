@@ -7,6 +7,8 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { Softphone } from "@/calls/components/Softphone";
 import { TrialBanner } from "@/components/TrialBanner";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
+import { TrialExpiredOverlay } from "@/components/TrialExpiredOverlay";
+import { useWorkspaceAccess } from "@/hooks/useWorkspaceAccess";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -15,6 +17,7 @@ export const Route = createFileRoute("/app")({
 function AppLayout() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const access = useWorkspaceAccess();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -50,6 +53,7 @@ function AppLayout() {
           </main>
         </div>
         <Softphone />
+        {access.blocked && <TrialExpiredOverlay reason={access.reason} />}
       </div>
     </SidebarProvider>
   );

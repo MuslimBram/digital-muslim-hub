@@ -132,6 +132,27 @@ const sq: Dict = {
   "ai.brand.doNotUse": "Mos përdor kurrë",
   "ai.brand.example": "Shembull përmbajtje (opsionale)",
   "ai.brand.saved": "Toni u ruajt",
+
+  // Monetization
+  "nav.billing": "Faturimi",
+  "nav.wallet": "Wallet",
+  "nav.donate": "Mbështet",
+  "billing.title": "Faturimi & Plani",
+  "billing.trial.left": "ditë të mbetura nga prova",
+  "billing.upgrade": "Zgjidh plan",
+  "billing.manage": "Menaxho abonimin",
+  "wallet.title": "Wallet & Referime",
+  "wallet.balance": "Bilanci aktual",
+  "wallet.withdraw": "Tërhiq fonde",
+  "wallet.referral.link": "Linku yt i referimit",
+  "wallet.referral.commission": "Fito 15% nga çdo blerje që bën biznesi i referuar.",
+  "donate.title": "Mbështet projektin",
+  "donate.subtitle": "Donacionet ndihmojnë në zhvillimin e platformës.",
+  "credits.daily": "Kreditet ditore",
+  "credits.reset": "Reset çdo 24h",
+  "credits.limit.reached": "Keni arritur limitin ditor. Përmirëso planin për më shumë.",
+  "security.code.title": "Kodi i sigurisë",
+  "security.code.confirm": "Konfirmo me kod sigurie",
 };
 
 const en: Dict = {
@@ -254,6 +275,27 @@ const en: Dict = {
   "ai.brand.doNotUse": "Never use",
   "ai.brand.example": "Example content (optional)",
   "ai.brand.saved": "Voice saved",
+
+  // Monetization
+  "nav.billing": "Billing",
+  "nav.wallet": "Wallet",
+  "nav.donate": "Donate",
+  "billing.title": "Billing & Plan",
+  "billing.trial.left": "days left in trial",
+  "billing.upgrade": "Choose plan",
+  "billing.manage": "Manage subscription",
+  "wallet.title": "Wallet & Referrals",
+  "wallet.balance": "Current balance",
+  "wallet.withdraw": "Withdraw funds",
+  "wallet.referral.link": "Your referral link",
+  "wallet.referral.commission": "Earn 15% on every purchase your referred business makes.",
+  "donate.title": "Support the project",
+  "donate.subtitle": "Donations help us develop the platform.",
+  "credits.daily": "Daily credits",
+  "credits.reset": "Resets every 24h",
+  "credits.limit.reached": "You've hit your daily limit. Upgrade for more.",
+  "security.code.title": "Security code",
+  "security.code.confirm": "Confirm with security code",
 };
 
 export const messages: Record<Locale, Dict> = { sq, en };

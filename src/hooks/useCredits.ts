@@ -5,16 +5,19 @@ import { useAuth } from "@/auth/AuthProvider";
 import type { Database } from "@/integrations/supabase/types";
 
 type Plan = Database["public"]["Tables"]["plans"]["Row"];
+type CreditKind = "image_gen" | "image_upload" | "video_gen" | "video_upload" | "ai_reply";
 
 interface Credits {
   imagesUsed: number;
   imagesLimit: number;
   videoSecondsUsed: number;
   videoSecondsLimit: number;
+  aiRepliesUsed: number;
+  aiRepliesLimit: number;
   unlimited: boolean;
   loading: boolean;
   refresh: () => Promise<void>;
-  recordUsage: (kind: "image_gen" | "image_upload" | "video_gen" | "video_upload", amount?: number) => Promise<boolean>;
+  recordUsage: (kind: CreditKind, amount?: number) => Promise<{ ok: boolean; reason?: string; used?: number; limit?: number }>;
 }
 
 export function useCredits(): Credits {
@@ -22,6 +25,7 @@ export function useCredits(): Credits {
   const { user } = useAuth();
   const [imagesUsed, setImagesUsed] = useState(0);
   const [videoSecondsUsed, setVideoSecondsUsed] = useState(0);
+  const [aiRepliesUsed, setAiRepliesUsed] = useState(0);
   const [plan, setPlan] = useState<Plan | null>(null);
   const [unlimited, setUnlimited] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -48,12 +52,15 @@ export function useCredits(): Credits {
     ]);
     let img = 0;
     let vid = 0;
+    let ai = 0;
     for (const r of rows ?? []) {
       if (r.kind === "image_gen" || r.kind === "image_upload") img += r.amount;
       else if (r.kind === "video_gen" || r.kind === "video_upload") vid += r.amount;
+      else if (r.kind === "ai_reply") ai += r.amount;
     }
     setImagesUsed(img);
     setVideoSecondsUsed(vid);
+    setAiRepliesUsed(ai);
     setUnlimited(!!roles?.some((r) => r.role === "owner" || r.role === "admin"));
     setPlan((sub?.plans as Plan | null) ?? null);
     setLoading(false);
@@ -65,25 +72,23 @@ export function useCredits(): Credits {
   }, [current?.id, user?.id]);
 
   const recordUsage = async (
-    kind: "image_gen" | "image_upload" | "video_gen" | "video_upload",
+    kind: CreditKind,
     amount = 1,
-  ): Promise<boolean> => {
-    if (!current || !user) return false;
-    const isImage = kind === "image_gen" || kind === "image_upload";
-    if (!unlimited) {
-      if (isImage && imagesUsed + amount > (plan?.daily_image_credits ?? 0)) return false;
-      if (!isImage && videoSecondsUsed + amount > (plan?.daily_video_seconds ?? 0)) return false;
-    }
-    const { error } = await supabase.from("credit_usage").insert({
-      workspace_id: current.id,
-      user_id: user.id,
-      kind,
-      amount,
+  ): Promise<{ ok: boolean; reason?: string; used?: number; limit?: number }> => {
+    if (!current || !user) return { ok: false, reason: "no_workspace" };
+    const { data, error } = await supabase.rpc("record_credit_usage", {
+      _workspace_id: current.id,
+      _kind: kind,
+      _amount: amount,
     });
-    if (error) return false;
-    if (isImage) setImagesUsed((n) => n + amount);
-    else setVideoSecondsUsed((n) => n + amount);
-    return true;
+    if (error) return { ok: false, reason: error.message };
+    const result = (data ?? {}) as { ok: boolean; reason?: string; used?: number; limit?: number };
+    if (result.ok) {
+      if (kind === "image_gen" || kind === "image_upload") setImagesUsed((n) => n + amount);
+      else if (kind === "video_gen" || kind === "video_upload") setVideoSecondsUsed((n) => n + amount);
+      else if (kind === "ai_reply") setAiRepliesUsed((n) => n + amount);
+    }
+    return result;
   };
 
   return {
@@ -91,6 +96,8 @@ export function useCredits(): Credits {
     imagesLimit: unlimited ? Infinity : plan?.daily_image_credits ?? 0,
     videoSecondsUsed,
     videoSecondsLimit: unlimited ? Infinity : plan?.daily_video_seconds ?? 0,
+    aiRepliesUsed,
+    aiRepliesLimit: unlimited ? Infinity : plan?.max_ai_replies_daily ?? 0,
     unlimited,
     loading,
     refresh: load,
