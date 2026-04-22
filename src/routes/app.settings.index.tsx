@@ -4,7 +4,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { useWorkspace } from "@/auth/WorkspaceProvider";
 import { PageHeader } from "@/components/PageHeader";
 
-export const Route = createFileRoute("/app/settings")({
+export const Route = createFileRoute("/app/settings/")({
   component: SettingsPage,
 });
 
