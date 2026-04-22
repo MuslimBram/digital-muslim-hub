@@ -1729,6 +1729,90 @@ export type Database = {
           },
         ]
       }
+      social_accounts: {
+        Row: {
+          access_token_ciphertext: string | null
+          access_token_iv: string | null
+          access_token_tag: string | null
+          account_id: string | null
+          avatar_url: string | null
+          business_id: string | null
+          config: Json
+          connected_by: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          kind: Database["public"]["Enums"]["social_account_kind"]
+          last_error: string | null
+          last_synced_at: string | null
+          profile_url: string | null
+          provider: Database["public"]["Enums"]["social_provider"]
+          refresh_token_ciphertext: string | null
+          refresh_token_iv: string | null
+          refresh_token_tag: string | null
+          scopes: string[] | null
+          status: Database["public"]["Enums"]["social_account_status"]
+          token_expires_at: string | null
+          updated_at: string
+          username: string | null
+          workspace_id: string
+        }
+        Insert: {
+          access_token_ciphertext?: string | null
+          access_token_iv?: string | null
+          access_token_tag?: string | null
+          account_id?: string | null
+          avatar_url?: string | null
+          business_id?: string | null
+          config?: Json
+          connected_by?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["social_account_kind"]
+          last_error?: string | null
+          last_synced_at?: string | null
+          profile_url?: string | null
+          provider: Database["public"]["Enums"]["social_provider"]
+          refresh_token_ciphertext?: string | null
+          refresh_token_iv?: string | null
+          refresh_token_tag?: string | null
+          scopes?: string[] | null
+          status?: Database["public"]["Enums"]["social_account_status"]
+          token_expires_at?: string | null
+          updated_at?: string
+          username?: string | null
+          workspace_id: string
+        }
+        Update: {
+          access_token_ciphertext?: string | null
+          access_token_iv?: string | null
+          access_token_tag?: string | null
+          account_id?: string | null
+          avatar_url?: string | null
+          business_id?: string | null
+          config?: Json
+          connected_by?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["social_account_kind"]
+          last_error?: string | null
+          last_synced_at?: string | null
+          profile_url?: string | null
+          provider?: Database["public"]["Enums"]["social_provider"]
+          refresh_token_ciphertext?: string | null
+          refresh_token_iv?: string | null
+          refresh_token_tag?: string | null
+          scopes?: string[] | null
+          status?: Database["public"]["Enums"]["social_account_status"]
+          token_expires_at?: string | null
+          updated_at?: string
+          username?: string | null
+          workspace_id?: string
+        }
+        Relationships: []
+      }
       subscriptions: {
         Row: {
           account_type: Database["public"]["Enums"]["account_type"]
@@ -2704,6 +2788,34 @@ export type Database = {
       message_direction: "inbound" | "outbound"
       plan_tier: "start" | "growth" | "professional" | "enterprise"
       queue_strategy: "round_robin" | "longest_idle" | "skills_based"
+      social_account_kind:
+        | "profile"
+        | "page"
+        | "group"
+        | "channel"
+        | "business"
+        | "creator"
+        | "personal"
+      social_account_status:
+        | "connected"
+        | "disconnected"
+        | "expired"
+        | "error"
+        | "pending"
+      social_provider:
+        | "instagram"
+        | "facebook"
+        | "linkedin"
+        | "tiktok"
+        | "youtube"
+        | "twitter"
+        | "threads"
+        | "bluesky"
+        | "mastodon"
+        | "pinterest"
+        | "google_business"
+        | "start_page"
+        | "custom"
       subscription_status:
         | "trialing"
         | "active"
@@ -2957,6 +3069,37 @@ export const Constants = {
       message_direction: ["inbound", "outbound"],
       plan_tier: ["start", "growth", "professional", "enterprise"],
       queue_strategy: ["round_robin", "longest_idle", "skills_based"],
+      social_account_kind: [
+        "profile",
+        "page",
+        "group",
+        "channel",
+        "business",
+        "creator",
+        "personal",
+      ],
+      social_account_status: [
+        "connected",
+        "disconnected",
+        "expired",
+        "error",
+        "pending",
+      ],
+      social_provider: [
+        "instagram",
+        "facebook",
+        "linkedin",
+        "tiktok",
+        "youtube",
+        "twitter",
+        "threads",
+        "bluesky",
+        "mastodon",
+        "pinterest",
+        "google_business",
+        "start_page",
+        "custom",
+      ],
       subscription_status: [
         "trialing",
         "active",

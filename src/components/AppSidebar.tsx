@@ -21,6 +21,8 @@ import {
   Wallet as WalletIcon,
   Plug,
   Cpu,
+  Share2,
+  ShieldCheck,
 } from "lucide-react";
 import {
   Sidebar,
@@ -38,6 +40,7 @@ import {
 import { useI18n } from "@/i18n/I18nProvider";
 import { useAuth } from "@/auth/AuthProvider";
 import { useWorkspace } from "@/auth/WorkspaceProvider";
+import { useUserRole } from "@/hooks/useUserRole";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -53,12 +56,14 @@ export function AppSidebar() {
   const { t } = useI18n();
   const { user, signOut } = useAuth();
   const { workspaces, current, setCurrent } = useWorkspace();
+  const { isUnlimited } = useUserRole();
   const location = useLocation();
   const collapsed = state === "collapsed";
 
   const main = [
     { to: "/app/dashboard", icon: LayoutDashboard, label: t("nav.dashboard") },
     { to: "/app/inbox", icon: Inbox, label: t("nav.inbox") },
+    { to: "/app/channels", icon: Share2, label: "Kanale Sociale" },
   ];
   const ai = [
     { to: "/app/ai", icon: MessageCircle, label: t("nav.ai.chat") },
@@ -84,6 +89,7 @@ export function AppSidebar() {
     { to: "/app/settings/integrations", icon: Plug, label: "Integrime" },
     { to: "/app/settings/billing", icon: CreditCard, label: "Faturimi" },
     { to: "/app/settings/wallet", icon: WalletIcon, label: "Wallet" },
+    { to: "/app/referrals", icon: Heart, label: "Refer & Earn 15%" },
     { to: "/app/donate", icon: Heart, label: "Mbështet" },
   ];
 
@@ -177,6 +183,16 @@ export function AppSidebar() {
             <SidebarMenu>{system.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {isUnlimited && (
+          <SidebarGroup>
+            {!collapsed && <SidebarGroupLabel>Admin</SidebarGroupLabel>}
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {renderItem({ to: "/app/admin", icon: ShieldCheck, label: "Admin Panel" })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter className="border-t border-sidebar-border">

@@ -16,15 +16,18 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppReferralsRouteImport } from './routes/app.referrals'
 import { Route as AppInboxRouteImport } from './routes/app.inbox'
 import { Route as AppHelpdeskRouteImport } from './routes/app.helpdesk'
 import { Route as AppDonateRouteImport } from './routes/app.donate'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppChannelsRouteImport } from './routes/app.channels'
 import { Route as AppCampaignsRouteImport } from './routes/app.campaigns'
 import { Route as AppCallsRouteImport } from './routes/app.calls'
 import { Route as AppAutomationRouteImport } from './routes/app.automation'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppAiRouteImport } from './routes/app.ai'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
 import { Route as AppSettingsIndexRouteImport } from './routes/app.settings.index'
 import { Route as AppCallsIndexRouteImport } from './routes/app.calls.index'
 import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
@@ -79,6 +82,11 @@ const AppSettingsRoute = AppSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
+const AppReferralsRoute = AppReferralsRouteImport.update({
+  id: '/referrals',
+  path: '/referrals',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppInboxRoute = AppInboxRouteImport.update({
   id: '/inbox',
   path: '/inbox',
@@ -97,6 +105,11 @@ const AppDonateRoute = AppDonateRouteImport.update({
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChannelsRoute = AppChannelsRouteImport.update({
+  id: '/channels',
+  path: '/channels',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCampaignsRoute = AppCampaignsRouteImport.update({
@@ -122,6 +135,11 @@ const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
 const AppAiRoute = AppAiRouteImport.update({
   id: '/ai',
   path: '/ai',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
@@ -220,15 +238,18 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/calls': typeof AppCallsRouteWithChildren
   '/app/campaigns': typeof AppCampaignsRoute
+  '/app/channels': typeof AppChannelsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -256,13 +277,16 @@ export interface FileRoutesByTo {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/campaigns': typeof AppCampaignsRoute
+  '/app/channels': typeof AppChannelsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
@@ -289,15 +313,18 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/app/admin': typeof AppAdminRoute
   '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/calls': typeof AppCallsRouteWithChildren
   '/app/campaigns': typeof AppCampaignsRoute
+  '/app/channels': typeof AppChannelsRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/donate': typeof AppDonateRoute
   '/app/helpdesk': typeof AppHelpdeskRoute
   '/app/inbox': typeof AppInboxRoute
+  '/app/referrals': typeof AppReferralsRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
@@ -327,15 +354,18 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/pricing'
+    | '/app/admin'
     | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
     | '/app/calls'
     | '/app/campaigns'
+    | '/app/channels'
     | '/app/dashboard'
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
@@ -363,13 +393,16 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/pricing'
+    | '/app/admin'
     | '/app/analytics'
     | '/app/automation'
     | '/app/campaigns'
+    | '/app/channels'
     | '/app/dashboard'
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
@@ -395,15 +428,18 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/pricing'
+    | '/app/admin'
     | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
     | '/app/calls'
     | '/app/campaigns'
+    | '/app/channels'
     | '/app/dashboard'
     | '/app/donate'
     | '/app/helpdesk'
     | '/app/inbox'
+    | '/app/referrals'
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
@@ -485,6 +521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/referrals': {
+      id: '/app/referrals'
+      path: '/referrals'
+      fullPath: '/app/referrals'
+      preLoaderRoute: typeof AppReferralsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/inbox': {
       id: '/app/inbox'
       path: '/inbox'
@@ -511,6 +554,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/app/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/channels': {
+      id: '/app/channels'
+      path: '/channels'
+      fullPath: '/app/channels'
+      preLoaderRoute: typeof AppChannelsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/campaigns': {
@@ -546,6 +596,13 @@ declare module '@tanstack/react-router' {
       path: '/ai'
       fullPath: '/app/ai'
       preLoaderRoute: typeof AppAiRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/settings/': {
@@ -748,30 +805,36 @@ const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
 )
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
   AppAiRoute: typeof AppAiRouteWithChildren
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAutomationRoute: typeof AppAutomationRoute
   AppCallsRoute: typeof AppCallsRouteWithChildren
   AppCampaignsRoute: typeof AppCampaignsRoute
+  AppChannelsRoute: typeof AppChannelsRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppDonateRoute: typeof AppDonateRoute
   AppHelpdeskRoute: typeof AppHelpdeskRoute
   AppInboxRoute: typeof AppInboxRoute
+  AppReferralsRoute: typeof AppReferralsRoute
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
   AppCrmContactsRoute: typeof AppCrmContactsRoute
   AppCrmPipelineRoute: typeof AppCrmPipelineRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
   AppAiRoute: AppAiRouteWithChildren,
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppAutomationRoute: AppAutomationRoute,
   AppCallsRoute: AppCallsRouteWithChildren,
   AppCampaignsRoute: AppCampaignsRoute,
+  AppChannelsRoute: AppChannelsRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppDonateRoute: AppDonateRoute,
   AppHelpdeskRoute: AppHelpdeskRoute,
   AppInboxRoute: AppInboxRoute,
+  AppReferralsRoute: AppReferralsRoute,
   AppSettingsRoute: AppSettingsRouteWithChildren,
   AppCrmContactsRoute: AppCrmContactsRoute,
   AppCrmPipelineRoute: AppCrmPipelineRoute,
