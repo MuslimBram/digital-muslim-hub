@@ -25,6 +25,8 @@ import { Route as AppAiRouteImport } from './routes/app.ai'
 import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
 import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
 import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
+import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
+import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -106,6 +108,16 @@ const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
   path: '/crm/contacts',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAiKnowledgeRoute = AppAiKnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => AppAiRoute,
+} as any)
+const AppAiBrandVoiceRoute = AppAiBrandVoiceRouteImport.update({
+  id: '/brand-voice',
+  path: '/brand-voice',
+  getParentRoute: () => AppAiRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,6 +133,8 @@ export interface FileRoutesByFullPath {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai/': typeof AppAiIndexRoute
@@ -138,6 +152,8 @@ export interface FileRoutesByTo {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai': typeof AppAiIndexRoute
@@ -157,6 +173,8 @@ export interface FileRoutesById {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/ai/': typeof AppAiIndexRoute
@@ -177,6 +195,8 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai/'
@@ -194,6 +214,8 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai'
@@ -212,6 +234,8 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/ai/'
@@ -337,14 +361,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCrmContactsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/ai/knowledge': {
+      id: '/app/ai/knowledge'
+      path: '/knowledge'
+      fullPath: '/app/ai/knowledge'
+      preLoaderRoute: typeof AppAiKnowledgeRouteImport
+      parentRoute: typeof AppAiRoute
+    }
+    '/app/ai/brand-voice': {
+      id: '/app/ai/brand-voice'
+      path: '/brand-voice'
+      fullPath: '/app/ai/brand-voice'
+      preLoaderRoute: typeof AppAiBrandVoiceRouteImport
+      parentRoute: typeof AppAiRoute
+    }
   }
 }
 
 interface AppAiRouteChildren {
+  AppAiBrandVoiceRoute: typeof AppAiBrandVoiceRoute
+  AppAiKnowledgeRoute: typeof AppAiKnowledgeRoute
   AppAiIndexRoute: typeof AppAiIndexRoute
 }
 
 const AppAiRouteChildren: AppAiRouteChildren = {
+  AppAiBrandVoiceRoute: AppAiBrandVoiceRoute,
+  AppAiKnowledgeRoute: AppAiKnowledgeRoute,
   AppAiIndexRoute: AppAiIndexRoute,
 }
 
