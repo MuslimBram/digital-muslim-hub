@@ -14,6 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      agent_schedules: {
+        Row: {
+          break_minutes: number | null
+          created_at: string
+          id: string
+          notes: string | null
+          queue_ids: string[]
+          shift_end: string
+          shift_start: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          break_minutes?: number | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          queue_ids?: string[]
+          shift_end: string
+          shift_start: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          break_minutes?: number | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          queue_ids?: string[]
+          shift_end?: string
+          shift_start?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
+      agent_status: {
+        Row: {
+          current_call_id: string | null
+          id: string
+          last_heartbeat: string
+          reason: string | null
+          since: string
+          status: Database["public"]["Enums"]["agent_presence"]
+          updated_at: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          current_call_id?: string | null
+          id?: string
+          last_heartbeat?: string
+          reason?: string | null
+          since?: string
+          status?: Database["public"]["Enums"]["agent_presence"]
+          updated_at?: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          current_call_id?: string | null
+          id?: string
+          last_heartbeat?: string
+          reason?: string | null
+          since?: string
+          status?: Database["public"]["Enums"]["agent_presence"]
+          updated_at?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
       ai_assistants: {
         Row: {
           created_at: string
@@ -292,6 +364,225 @@ export type Database = {
             columns: ["workspace_id"]
             isOneToOne: false
             referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      call_events: {
+        Row: {
+          actor_user_id: string | null
+          at: string
+          call_id: string
+          event_type: Database["public"]["Enums"]["call_event_type"]
+          id: string
+          payload: Json
+          workspace_id: string
+        }
+        Insert: {
+          actor_user_id?: string | null
+          at?: string
+          call_id: string
+          event_type: Database["public"]["Enums"]["call_event_type"]
+          id?: string
+          payload?: Json
+          workspace_id: string
+        }
+        Update: {
+          actor_user_id?: string | null
+          at?: string
+          call_id?: string
+          event_type?: Database["public"]["Enums"]["call_event_type"]
+          id?: string
+          payload?: Json
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_events_call_id_fkey"
+            columns: ["call_id"]
+            isOneToOne: false
+            referencedRelation: "calls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      call_queues: {
+        Row: {
+          business_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          max_wait_seconds: number
+          music_url: string | null
+          name: string
+          ringing_seconds: number
+          sla_seconds: number
+          strategy: Database["public"]["Enums"]["queue_strategy"]
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          business_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          max_wait_seconds?: number
+          music_url?: string | null
+          name: string
+          ringing_seconds?: number
+          sla_seconds?: number
+          strategy?: Database["public"]["Enums"]["queue_strategy"]
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          business_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          max_wait_seconds?: number
+          music_url?: string | null
+          name?: string
+          ringing_seconds?: number
+          sla_seconds?: number
+          strategy?: Database["public"]["Enums"]["queue_strategy"]
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
+      call_recordings: {
+        Row: {
+          call_id: string
+          created_at: string
+          duration_seconds: number
+          file_size_bytes: number | null
+          id: string
+          mime_type: string | null
+          storage_path: string
+          transcript: string | null
+          transcript_status: string | null
+          workspace_id: string
+        }
+        Insert: {
+          call_id: string
+          created_at?: string
+          duration_seconds?: number
+          file_size_bytes?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path: string
+          transcript?: string | null
+          transcript_status?: string | null
+          workspace_id: string
+        }
+        Update: {
+          call_id?: string
+          created_at?: string
+          duration_seconds?: number
+          file_size_bytes?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path?: string
+          transcript?: string | null
+          transcript_status?: string | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "call_recordings_call_id_fkey"
+            columns: ["call_id"]
+            isOneToOne: false
+            referencedRelation: "calls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      calls: {
+        Row: {
+          agent_id: string | null
+          answered_at: string | null
+          business_id: string | null
+          contact_id: string | null
+          created_at: string
+          direction: Database["public"]["Enums"]["call_direction"]
+          disposition: string | null
+          duration_seconds: number | null
+          ended_at: string | null
+          from_number: string
+          hold_seconds: number | null
+          id: string
+          metadata: Json
+          notes: string | null
+          queue_id: string | null
+          recording_id: string | null
+          ringing_seconds: number | null
+          started_at: string
+          status: Database["public"]["Enums"]["call_status"]
+          to_number: string
+          updated_at: string
+          wait_seconds: number | null
+          workspace_id: string
+        }
+        Insert: {
+          agent_id?: string | null
+          answered_at?: string | null
+          business_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          direction: Database["public"]["Enums"]["call_direction"]
+          disposition?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          from_number: string
+          hold_seconds?: number | null
+          id?: string
+          metadata?: Json
+          notes?: string | null
+          queue_id?: string | null
+          recording_id?: string | null
+          ringing_seconds?: number | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["call_status"]
+          to_number: string
+          updated_at?: string
+          wait_seconds?: number | null
+          workspace_id: string
+        }
+        Update: {
+          agent_id?: string | null
+          answered_at?: string | null
+          business_id?: string | null
+          contact_id?: string | null
+          created_at?: string
+          direction?: Database["public"]["Enums"]["call_direction"]
+          disposition?: string | null
+          duration_seconds?: number | null
+          ended_at?: string | null
+          from_number?: string
+          hold_seconds?: number | null
+          id?: string
+          metadata?: Json
+          notes?: string | null
+          queue_id?: string | null
+          recording_id?: string | null
+          ringing_seconds?: number | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["call_status"]
+          to_number?: string
+          updated_at?: string
+          wait_seconds?: number | null
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calls_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "call_queues"
             referencedColumns: ["id"]
           },
         ]
@@ -637,6 +928,158 @@ export type Database = {
           },
         ]
       }
+      dialer_campaigns: {
+        Row: {
+          business_id: string | null
+          completed_calls: number | null
+          contact_ids: string[]
+          created_at: string
+          created_by: string | null
+          id: string
+          mode: Database["public"]["Enums"]["dialer_mode"]
+          name: string
+          queue_id: string | null
+          script: string | null
+          status: Database["public"]["Enums"]["dialer_status"]
+          total_calls: number | null
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          business_id?: string | null
+          completed_calls?: number | null
+          contact_ids?: string[]
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          mode?: Database["public"]["Enums"]["dialer_mode"]
+          name: string
+          queue_id?: string | null
+          script?: string | null
+          status?: Database["public"]["Enums"]["dialer_status"]
+          total_calls?: number | null
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          business_id?: string | null
+          completed_calls?: number | null
+          contact_ids?: string[]
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          mode?: Database["public"]["Enums"]["dialer_mode"]
+          name?: string
+          queue_id?: string | null
+          script?: string | null
+          status?: Database["public"]["Enums"]["dialer_status"]
+          total_calls?: number | null
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dialer_campaigns_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "call_queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ivr_flows: {
+        Row: {
+          business_id: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          language: string
+          name: string
+          root_node_id: string | null
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          business_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string
+          name: string
+          root_node_id?: string | null
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          business_id?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          language?: string
+          name?: string
+          root_node_id?: string | null
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: []
+      }
+      ivr_nodes: {
+        Row: {
+          config: Json
+          created_at: string
+          flow_id: string
+          id: string
+          label: string | null
+          parent_id: string | null
+          position_x: number | null
+          position_y: number | null
+          type: Database["public"]["Enums"]["ivr_node_type"]
+          workspace_id: string
+        }
+        Insert: {
+          config?: Json
+          created_at?: string
+          flow_id: string
+          id?: string
+          label?: string | null
+          parent_id?: string | null
+          position_x?: number | null
+          position_y?: number | null
+          type: Database["public"]["Enums"]["ivr_node_type"]
+          workspace_id: string
+        }
+        Update: {
+          config?: Json
+          created_at?: string
+          flow_id?: string
+          id?: string
+          label?: string | null
+          parent_id?: string | null
+          position_x?: number | null
+          position_y?: number | null
+          type?: Database["public"]["Enums"]["ivr_node_type"]
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ivr_nodes_flow_id_fkey"
+            columns: ["flow_id"]
+            isOneToOne: false
+            referencedRelation: "ivr_flows"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ivr_nodes_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "ivr_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       kb_chunks: {
         Row: {
           chunk_index: number
@@ -937,6 +1380,44 @@ export type Database = {
         }
         Relationships: []
       }
+      queue_members: {
+        Row: {
+          created_at: string
+          id: string
+          priority: number
+          queue_id: string
+          skills: string[]
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          priority?: number
+          queue_id: string
+          skills?: string[]
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          priority?: number
+          queue_id?: string
+          skills?: string[]
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "queue_members_queue_id_fkey"
+            columns: ["queue_id"]
+            isOneToOne: false
+            referencedRelation: "call_queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tickets: {
         Row: {
           assigned_to: string | null
@@ -1171,8 +1652,38 @@ export type Database = {
       }
     }
     Enums: {
+      agent_presence:
+        | "available"
+        | "busy"
+        | "away"
+        | "offline"
+        | "on_call"
+        | "wrap_up"
       ai_message_role: "system" | "user" | "assistant" | "tool"
       app_role: "admin" | "business" | "freelancer" | "partner"
+      call_direction: "inbound" | "outbound" | "internal"
+      call_event_type:
+        | "ringing"
+        | "answered"
+        | "hold"
+        | "unhold"
+        | "mute"
+        | "unmute"
+        | "transfer"
+        | "hangup"
+        | "recording_start"
+        | "recording_stop"
+        | "note"
+        | "ivr_input"
+      call_status:
+        | "ringing"
+        | "answered"
+        | "on_hold"
+        | "transferred"
+        | "ended"
+        | "missed"
+        | "voicemail"
+        | "failed"
       campaign_status:
         | "draft"
         | "scheduled"
@@ -1183,10 +1694,21 @@ export type Database = {
       contact_status: "lead" | "qualified" | "customer" | "churned"
       conversation_status: "open" | "pending" | "resolved" | "closed"
       deal_status: "open" | "won" | "lost"
+      dialer_mode: "preview" | "progressive" | "predictive"
+      dialer_status: "draft" | "running" | "paused" | "completed"
+      ivr_node_type:
+        | "menu"
+        | "play"
+        | "collect"
+        | "transfer"
+        | "hangup"
+        | "queue"
+        | "voicemail"
       kb_source_type: "website" | "pdf" | "text" | "social"
       kb_status: "pending" | "processing" | "ready" | "failed"
       memory_scope: "workspace" | "business" | "contact"
       message_direction: "inbound" | "outbound"
+      queue_strategy: "round_robin" | "longest_idle" | "skills_based"
       ticket_priority: "low" | "normal" | "high" | "urgent"
       ticket_status: "new" | "open" | "pending" | "resolved" | "closed"
       workspace_role: "owner" | "admin" | "member" | "viewer"
@@ -1317,17 +1839,62 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      agent_presence: [
+        "available",
+        "busy",
+        "away",
+        "offline",
+        "on_call",
+        "wrap_up",
+      ],
       ai_message_role: ["system", "user", "assistant", "tool"],
       app_role: ["admin", "business", "freelancer", "partner"],
+      call_direction: ["inbound", "outbound", "internal"],
+      call_event_type: [
+        "ringing",
+        "answered",
+        "hold",
+        "unhold",
+        "mute",
+        "unmute",
+        "transfer",
+        "hangup",
+        "recording_start",
+        "recording_stop",
+        "note",
+        "ivr_input",
+      ],
+      call_status: [
+        "ringing",
+        "answered",
+        "on_hold",
+        "transferred",
+        "ended",
+        "missed",
+        "voicemail",
+        "failed",
+      ],
       campaign_status: ["draft", "scheduled", "running", "completed", "paused"],
       channel_type: ["whatsapp", "telegram", "email", "sms", "webchat"],
       contact_status: ["lead", "qualified", "customer", "churned"],
       conversation_status: ["open", "pending", "resolved", "closed"],
       deal_status: ["open", "won", "lost"],
+      dialer_mode: ["preview", "progressive", "predictive"],
+      dialer_status: ["draft", "running", "paused", "completed"],
+      ivr_node_type: [
+        "menu",
+        "play",
+        "collect",
+        "transfer",
+        "hangup",
+        "queue",
+        "voicemail",
+      ],
       kb_source_type: ["website", "pdf", "text", "social"],
       kb_status: ["pending", "processing", "ready", "failed"],
       memory_scope: ["workspace", "business", "contact"],
       message_direction: ["inbound", "outbound"],
+      queue_strategy: ["round_robin", "longest_idle", "skills_based"],
       ticket_priority: ["low", "normal", "high", "urgent"],
       ticket_status: ["new", "open", "pending", "resolved", "closed"],
       workspace_role: ["owner", "admin", "member", "viewer"],
