@@ -15,6 +15,7 @@ import {
   Brain,
   BookOpen,
   MessageCircle,
+  Phone,
 } from "lucide-react";
 import {
   Sidebar,
@@ -68,6 +69,9 @@ export function AppSidebar() {
     { to: "/app/helpdesk", icon: Headphones, label: t("nav.helpdesk") },
     { to: "/app/automation", icon: Workflow, label: t("nav.automation") },
     { to: "/app/analytics", icon: BarChart3, label: t("nav.analytics") },
+  ];
+  const calls = [
+    { to: "/app/calls", icon: Phone, label: t("nav.calls") },
   ];
   const system = [
     { to: "/app/settings", icon: Settings, label: t("nav.settings") },
@@ -143,6 +147,12 @@ export function AppSidebar() {
           {!collapsed && <SidebarGroupLabel>{t("nav.crm")}</SidebarGroupLabel>}
           <SidebarGroupContent>
             <SidebarMenu>{crm.map(renderItem)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          {!collapsed && <SidebarGroupLabel>{t("nav.callcenter")}</SidebarGroupLabel>}
+          <SidebarGroupContent>
+            <SidebarMenu>{calls.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>

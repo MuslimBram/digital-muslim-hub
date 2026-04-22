@@ -4,6 +4,7 @@ import { useAuth } from "@/auth/AuthProvider";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { LanguageToggle } from "@/components/LanguageToggle";
+import { Softphone } from "@/calls/components/Softphone";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -44,6 +45,7 @@ function AppLayout() {
             <Outlet />
           </main>
         </div>
+        <Softphone />
       </div>
     </SidebarProvider>
   );
