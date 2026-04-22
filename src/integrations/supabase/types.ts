@@ -848,6 +848,47 @@ export type Database = {
           },
         ]
       }
+      credit_usage: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          kind: Database["public"]["Enums"]["credit_kind"]
+          metadata: Json
+          usage_date: string
+          user_id: string
+          workspace_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          kind: Database["public"]["Enums"]["credit_kind"]
+          metadata?: Json
+          usage_date?: string
+          user_id: string
+          workspace_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["credit_kind"]
+          metadata?: Json
+          usage_date?: string
+          user_id?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_usage_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       deals: {
         Row: {
           assigned_to: string | null
@@ -986,6 +1027,54 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      donations: {
+        Row: {
+          amount_cents: number
+          completed_at: string | null
+          created_at: string
+          currency: string
+          donor_email: string | null
+          donor_name: string | null
+          donor_user_id: string | null
+          id: string
+          message: string | null
+          metadata: Json
+          paypal_capture_id: string | null
+          paypal_order_id: string | null
+          status: Database["public"]["Enums"]["donation_status"]
+        }
+        Insert: {
+          amount_cents: number
+          completed_at?: string | null
+          created_at?: string
+          currency?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          donor_user_id?: string | null
+          id?: string
+          message?: string | null
+          metadata?: Json
+          paypal_capture_id?: string | null
+          paypal_order_id?: string | null
+          status?: Database["public"]["Enums"]["donation_status"]
+        }
+        Update: {
+          amount_cents?: number
+          completed_at?: string | null
+          created_at?: string
+          currency?: string
+          donor_email?: string | null
+          donor_name?: string | null
+          donor_user_id?: string | null
+          id?: string
+          message?: string | null
+          metadata?: Json
+          paypal_capture_id?: string | null
+          paypal_order_id?: string | null
+          status?: Database["public"]["Enums"]["donation_status"]
+        }
+        Relationships: []
       }
       ivr_flows: {
         Row: {
@@ -1350,32 +1439,107 @@ export type Database = {
           },
         ]
       }
+      plans: {
+        Row: {
+          created_at: string
+          currency: string
+          daily_image_credits: number
+          daily_video_seconds: number
+          features: Json
+          id: string
+          is_active: boolean
+          max_ai_replies_daily: number
+          max_businesses: number
+          max_channels: number
+          max_team_members: number
+          monthly_price_cents: number
+          name: string
+          sort_order: number
+          tier: Database["public"]["Enums"]["plan_tier"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          currency?: string
+          daily_image_credits: number
+          daily_video_seconds: number
+          features?: Json
+          id?: string
+          is_active?: boolean
+          max_ai_replies_daily: number
+          max_businesses: number
+          max_channels: number
+          max_team_members: number
+          monthly_price_cents: number
+          name: string
+          sort_order?: number
+          tier: Database["public"]["Enums"]["plan_tier"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          daily_image_credits?: number
+          daily_video_seconds?: number
+          features?: Json
+          id?: string
+          is_active?: boolean
+          max_ai_replies_daily?: number
+          max_businesses?: number
+          max_channels?: number
+          max_team_members?: number
+          monthly_price_cents?: number
+          name?: string
+          sort_order?: number
+          tier?: Database["public"]["Enums"]["plan_tier"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
+          account_type: Database["public"]["Enums"]["account_type"]
           avatar_url: string | null
+          company_name: string | null
           created_at: string
           email: string
           full_name: string | null
           id: string
           locale: string
+          phone: string | null
+          referral_code: string | null
+          referred_by: string | null
+          security_code_hash: string | null
           updated_at: string
         }
         Insert: {
+          account_type?: Database["public"]["Enums"]["account_type"]
           avatar_url?: string | null
+          company_name?: string | null
           created_at?: string
           email: string
           full_name?: string | null
           id: string
           locale?: string
+          phone?: string | null
+          referral_code?: string | null
+          referred_by?: string | null
+          security_code_hash?: string | null
           updated_at?: string
         }
         Update: {
+          account_type?: Database["public"]["Enums"]["account_type"]
           avatar_url?: string | null
+          company_name?: string | null
           created_at?: string
           email?: string
           full_name?: string | null
           id?: string
           locale?: string
+          phone?: string | null
+          referral_code?: string | null
+          referred_by?: string | null
+          security_code_hash?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1414,6 +1578,131 @@ export type Database = {
             columns: ["queue_id"]
             isOneToOne: false
             referencedRelation: "call_queues"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referrals: {
+        Row: {
+          commission_rate: number
+          created_at: string
+          first_payment_at: string | null
+          id: string
+          is_active: boolean
+          referred_user_id: string
+          referred_workspace_id: string | null
+          referrer_id: string
+          signup_at: string
+          total_commission_cents: number
+        }
+        Insert: {
+          commission_rate?: number
+          created_at?: string
+          first_payment_at?: string | null
+          id?: string
+          is_active?: boolean
+          referred_user_id: string
+          referred_workspace_id?: string | null
+          referrer_id: string
+          signup_at?: string
+          total_commission_cents?: number
+        }
+        Update: {
+          commission_rate?: number
+          created_at?: string
+          first_payment_at?: string | null
+          id?: string
+          is_active?: boolean
+          referred_user_id?: string
+          referred_workspace_id?: string | null
+          referrer_id?: string
+          signup_at?: string
+          total_commission_cents?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_referred_workspace_id_fkey"
+            columns: ["referred_workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          account_type: Database["public"]["Enums"]["account_type"]
+          billing_cycle: Database["public"]["Enums"]["billing_cycle"]
+          blocked_at: string | null
+          cancel_at_period_end: boolean
+          created_at: string
+          current_period_end: string | null
+          current_period_start: string | null
+          delete_after: string | null
+          id: string
+          metadata: Json
+          paddle_customer_id: string | null
+          paddle_subscription_id: string | null
+          plan_id: string
+          status: Database["public"]["Enums"]["subscription_status"]
+          trial_ends_at: string
+          trial_started_at: string
+          updated_at: string
+          workspace_id: string
+        }
+        Insert: {
+          account_type?: Database["public"]["Enums"]["account_type"]
+          billing_cycle?: Database["public"]["Enums"]["billing_cycle"]
+          blocked_at?: string | null
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          delete_after?: string | null
+          id?: string
+          metadata?: Json
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          plan_id: string
+          status?: Database["public"]["Enums"]["subscription_status"]
+          trial_ends_at?: string
+          trial_started_at?: string
+          updated_at?: string
+          workspace_id: string
+        }
+        Update: {
+          account_type?: Database["public"]["Enums"]["account_type"]
+          billing_cycle?: Database["public"]["Enums"]["billing_cycle"]
+          blocked_at?: string | null
+          cancel_at_period_end?: boolean
+          created_at?: string
+          current_period_end?: string | null
+          current_period_start?: string | null
+          delete_after?: string | null
+          id?: string
+          metadata?: Json
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          plan_id?: string
+          status?: Database["public"]["Enums"]["subscription_status"]
+          trial_ends_at?: string
+          trial_started_at?: string
+          updated_at?: string
+          workspace_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: true
+            referencedRelation: "workspaces"
             referencedColumns: ["id"]
           },
         ]
@@ -1505,6 +1794,83 @@ export type Database = {
           created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json
+          reference_id: string | null
+          tx_type: Database["public"]["Enums"]["wallet_tx_type"]
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json
+          reference_id?: string | null
+          tx_type: Database["public"]["Enums"]["wallet_tx_type"]
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json
+          reference_id?: string | null
+          tx_type?: Database["public"]["Enums"]["wallet_tx_type"]
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallets: {
+        Row: {
+          balance_cents: number
+          created_at: string
+          currency: string
+          id: string
+          total_earned_cents: number
+          total_withdrawn_cents: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          total_earned_cents?: number
+          total_withdrawn_cents?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          total_earned_cents?: number
+          total_withdrawn_cents?: number
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -1620,6 +1986,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_referral_code: { Args: { _user_id: string }; Returns: string }
+      get_image_credit_limit: {
+        Args: { _user_id: string; _workspace_id: string }
+        Returns: number
+      }
+      get_image_credits_used_today: {
+        Args: { _workspace_id: string }
+        Returns: number
+      }
+      get_video_seconds_used_today: {
+        Args: { _workspace_id: string }
+        Returns: number
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1627,6 +2006,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_unlimited_user: { Args: { _user_id: string }; Returns: boolean }
       is_workspace_member: {
         Args: { _user_id: string; _workspace_id: string }
         Returns: boolean
@@ -1652,6 +2032,7 @@ export type Database = {
       }
     }
     Enums: {
+      account_type: "business" | "freelancer" | "ambassador"
       agent_presence:
         | "available"
         | "busy"
@@ -1661,6 +2042,7 @@ export type Database = {
         | "wrap_up"
       ai_message_role: "system" | "user" | "assistant" | "tool"
       app_role: "admin" | "business" | "freelancer" | "partner" | "owner"
+      billing_cycle: "trial" | "monthly" | "quarterly" | "biannual" | "yearly"
       call_direction: "inbound" | "outbound" | "internal"
       call_event_type:
         | "ringing"
@@ -1693,9 +2075,11 @@ export type Database = {
       channel_type: "whatsapp" | "telegram" | "email" | "sms" | "webchat"
       contact_status: "lead" | "qualified" | "customer" | "churned"
       conversation_status: "open" | "pending" | "resolved" | "closed"
+      credit_kind: "image_gen" | "image_upload" | "video_gen" | "video_upload"
       deal_status: "open" | "won" | "lost"
       dialer_mode: "preview" | "progressive" | "predictive"
       dialer_status: "draft" | "running" | "paused" | "completed"
+      donation_status: "pending" | "completed" | "failed" | "refunded"
       ivr_node_type:
         | "menu"
         | "play"
@@ -1708,9 +2092,22 @@ export type Database = {
       kb_status: "pending" | "processing" | "ready" | "failed"
       memory_scope: "workspace" | "business" | "contact"
       message_direction: "inbound" | "outbound"
+      plan_tier: "start" | "growth" | "professional" | "enterprise"
       queue_strategy: "round_robin" | "longest_idle" | "skills_based"
+      subscription_status:
+        | "trialing"
+        | "active"
+        | "past_due"
+        | "canceled"
+        | "expired"
+        | "blocked"
       ticket_priority: "low" | "normal" | "high" | "urgent"
       ticket_status: "new" | "open" | "pending" | "resolved" | "closed"
+      wallet_tx_type:
+        | "referral_commission"
+        | "donation_received"
+        | "withdrawal"
+        | "adjustment"
       workspace_role: "owner" | "admin" | "member" | "viewer"
     }
     CompositeTypes: {
@@ -1839,6 +2236,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      account_type: ["business", "freelancer", "ambassador"],
       agent_presence: [
         "available",
         "busy",
@@ -1849,6 +2247,7 @@ export const Constants = {
       ],
       ai_message_role: ["system", "user", "assistant", "tool"],
       app_role: ["admin", "business", "freelancer", "partner", "owner"],
+      billing_cycle: ["trial", "monthly", "quarterly", "biannual", "yearly"],
       call_direction: ["inbound", "outbound", "internal"],
       call_event_type: [
         "ringing",
@@ -1878,9 +2277,11 @@ export const Constants = {
       channel_type: ["whatsapp", "telegram", "email", "sms", "webchat"],
       contact_status: ["lead", "qualified", "customer", "churned"],
       conversation_status: ["open", "pending", "resolved", "closed"],
+      credit_kind: ["image_gen", "image_upload", "video_gen", "video_upload"],
       deal_status: ["open", "won", "lost"],
       dialer_mode: ["preview", "progressive", "predictive"],
       dialer_status: ["draft", "running", "paused", "completed"],
+      donation_status: ["pending", "completed", "failed", "refunded"],
       ivr_node_type: [
         "menu",
         "play",
@@ -1894,9 +2295,24 @@ export const Constants = {
       kb_status: ["pending", "processing", "ready", "failed"],
       memory_scope: ["workspace", "business", "contact"],
       message_direction: ["inbound", "outbound"],
+      plan_tier: ["start", "growth", "professional", "enterprise"],
       queue_strategy: ["round_robin", "longest_idle", "skills_based"],
+      subscription_status: [
+        "trialing",
+        "active",
+        "past_due",
+        "canceled",
+        "expired",
+        "blocked",
+      ],
       ticket_priority: ["low", "normal", "high", "urgent"],
       ticket_status: ["new", "open", "pending", "resolved", "closed"],
+      wallet_tx_type: [
+        "referral_commission",
+        "donation_received",
+        "withdrawal",
+        "adjustment",
+      ],
       workspace_role: ["owner", "admin", "member", "viewer"],
     },
   },
