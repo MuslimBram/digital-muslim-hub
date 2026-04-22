@@ -21,8 +21,12 @@ import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 import { Route as AppCampaignsRouteImport } from './routes/app.campaigns'
 import { Route as AppAutomationRouteImport } from './routes/app.automation'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
+import { Route as AppAiRouteImport } from './routes/app.ai'
+import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
 import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
 import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
+import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
+import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -84,6 +88,16 @@ const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAiRoute = AppAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAiIndexRoute = AppAiIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppAiRoute,
+} as any)
 const AppCrmPipelineRoute = AppCrmPipelineRouteImport.update({
   id: '/crm/pipeline',
   path: '/crm/pipeline',
@@ -94,11 +108,22 @@ const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
   path: '/crm/contacts',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAiKnowledgeRoute = AppAiKnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => AppAiRoute,
+} as any)
+const AppAiBrandVoiceRoute = AppAiBrandVoiceRouteImport.update({
+  id: '/brand-voice',
+  path: '/brand-voice',
+  getParentRoute: () => AppAiRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/campaigns': typeof AppCampaignsRoute
@@ -108,8 +133,11 @@ export interface FileRoutesByFullPath {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
+  '/app/ai/': typeof AppAiIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -124,14 +152,18 @@ export interface FileRoutesByTo {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
+  '/app/ai': typeof AppAiIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
+  '/app/ai': typeof AppAiRouteWithChildren
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/automation': typeof AppAutomationRoute
   '/app/campaigns': typeof AppCampaignsRoute
@@ -141,8 +173,11 @@ export interface FileRoutesById {
   '/app/settings': typeof AppSettingsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
+  '/app/ai/': typeof AppAiIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -150,6 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
     | '/app/campaigns'
@@ -159,8 +195,11 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
+    | '/app/ai/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -175,13 +214,17 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
+    | '/app/ai'
   id:
     | '__root__'
     | '/'
     | '/app'
     | '/auth'
+    | '/app/ai'
     | '/app/analytics'
     | '/app/automation'
     | '/app/campaigns'
@@ -191,8 +234,11 @@ export interface FileRouteTypes {
     | '/app/settings'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/ai/brand-voice'
+    | '/app/ai/knowledge'
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
+    | '/app/ai/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -287,6 +333,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAnalyticsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/ai': {
+      id: '/app/ai'
+      path: '/ai'
+      fullPath: '/app/ai'
+      preLoaderRoute: typeof AppAiRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ai/': {
+      id: '/app/ai/'
+      path: '/'
+      fullPath: '/app/ai/'
+      preLoaderRoute: typeof AppAiIndexRouteImport
+      parentRoute: typeof AppAiRoute
+    }
     '/app/crm/pipeline': {
       id: '/app/crm/pipeline'
       path: '/crm/pipeline'
@@ -301,10 +361,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCrmContactsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/ai/knowledge': {
+      id: '/app/ai/knowledge'
+      path: '/knowledge'
+      fullPath: '/app/ai/knowledge'
+      preLoaderRoute: typeof AppAiKnowledgeRouteImport
+      parentRoute: typeof AppAiRoute
+    }
+    '/app/ai/brand-voice': {
+      id: '/app/ai/brand-voice'
+      path: '/brand-voice'
+      fullPath: '/app/ai/brand-voice'
+      preLoaderRoute: typeof AppAiBrandVoiceRouteImport
+      parentRoute: typeof AppAiRoute
+    }
   }
 }
 
+interface AppAiRouteChildren {
+  AppAiBrandVoiceRoute: typeof AppAiBrandVoiceRoute
+  AppAiKnowledgeRoute: typeof AppAiKnowledgeRoute
+  AppAiIndexRoute: typeof AppAiIndexRoute
+}
+
+const AppAiRouteChildren: AppAiRouteChildren = {
+  AppAiBrandVoiceRoute: AppAiBrandVoiceRoute,
+  AppAiKnowledgeRoute: AppAiKnowledgeRoute,
+  AppAiIndexRoute: AppAiIndexRoute,
+}
+
+const AppAiRouteWithChildren = AppAiRoute._addFileChildren(AppAiRouteChildren)
+
 interface AppRouteChildren {
+  AppAiRoute: typeof AppAiRouteWithChildren
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAutomationRoute: typeof AppAutomationRoute
   AppCampaignsRoute: typeof AppCampaignsRoute
@@ -317,6 +406,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAiRoute: AppAiRouteWithChildren,
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppAutomationRoute: AppAutomationRoute,
   AppCampaignsRoute: AppCampaignsRoute,

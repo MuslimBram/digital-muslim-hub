@@ -12,6 +12,9 @@ import {
   Sparkles,
   ChevronsUpDown,
   LogOut,
+  Brain,
+  BookOpen,
+  MessageCircle,
 } from "lucide-react";
 import {
   Sidebar,
@@ -50,6 +53,11 @@ export function AppSidebar() {
   const main = [
     { to: "/app/dashboard", icon: LayoutDashboard, label: t("nav.dashboard") },
     { to: "/app/inbox", icon: Inbox, label: t("nav.inbox") },
+  ];
+  const ai = [
+    { to: "/app/ai", icon: MessageCircle, label: t("nav.ai.chat") },
+    { to: "/app/ai/knowledge", icon: BookOpen, label: t("nav.ai.knowledge") },
+    { to: "/app/ai/brand-voice", icon: Brain, label: t("nav.ai.brand") },
   ];
   const crm = [
     { to: "/app/crm/contacts", icon: Users, label: t("nav.contacts") },
@@ -123,6 +131,12 @@ export function AppSidebar() {
           {!collapsed && <SidebarGroupLabel>Main</SidebarGroupLabel>}
           <SidebarGroupContent>
             <SidebarMenu>{main.map(renderItem)}</SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          {!collapsed && <SidebarGroupLabel>{t("nav.ai")}</SidebarGroupLabel>}
+          <SidebarGroupContent>
+            <SidebarMenu>{ai.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
