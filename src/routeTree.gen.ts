@@ -15,6 +15,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
+import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -46,6 +48,16 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCrmPipelineRoute = AppCrmPipelineRouteImport.update({
+  id: '/crm/pipeline',
+  path: '/crm/pipeline',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCrmContactsRoute = AppCrmContactsRouteImport.update({
+  id: '/crm/contacts',
+  path: '/crm/contacts',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +87,8 @@ export interface FileRoutesById {
   '/app/dashboard': typeof AppDashboardRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/app/crm/contacts': typeof AppCrmContactsRoute
+  '/app/crm/pipeline': typeof AppCrmPipelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +99,18 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/auth' | '/app/dashboard' | '/auth/login' | '/auth/signup'
+  to:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/dashboard'
+    | '/auth/login'
+    | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
   id:
     | '__root__'
     | '/'
@@ -91,6 +119,8 @@ export interface FileRouteTypes {
     | '/app/dashboard'
     | '/auth/login'
     | '/auth/signup'
+    | '/app/crm/contacts'
+    | '/app/crm/pipeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,15 +173,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/crm/pipeline': {
+      id: '/app/crm/pipeline'
+      path: '/crm/pipeline'
+      fullPath: '/app/crm/pipeline'
+      preLoaderRoute: typeof AppCrmPipelineRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/crm/contacts': {
+      id: '/app/crm/contacts'
+      path: '/crm/contacts'
+      fullPath: '/app/crm/contacts'
+      preLoaderRoute: typeof AppCrmContactsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppCrmContactsRoute: typeof AppCrmContactsRoute
+  AppCrmPipelineRoute: typeof AppCrmPipelineRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppCrmContactsRoute: AppCrmContactsRoute,
+  AppCrmPipelineRoute: AppCrmPipelineRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
