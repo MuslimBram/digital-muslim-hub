@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-router";
-import { Settings as SettingsIcon, CreditCard, Heart } from "lucide-react";
+import { Settings as SettingsIcon, CreditCard, Wallet as WalletIcon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 
 export const Route = createFileRoute("/app/settings")({
@@ -13,6 +13,7 @@ function SettingsLayout() {
   const tabs = [
     { to: "/app/settings", label: t("nav.settings"), icon: SettingsIcon, exact: true },
     { to: "/app/settings/billing", label: "Faturimi", icon: CreditCard, exact: false },
+    { to: "/app/settings/wallet", label: "Wallet & Referime", icon: WalletIcon, exact: false },
   ];
 
   const isActive = (to: string, exact: boolean) =>

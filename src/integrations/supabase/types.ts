@@ -1987,6 +1987,10 @@ export type Database = {
     }
     Functions: {
       generate_referral_code: { Args: { _user_id: string }; Returns: string }
+      get_ai_replies_used_today: {
+        Args: { _workspace_id: string }
+        Returns: number
+      }
       get_image_credit_limit: {
         Args: { _user_id: string; _workspace_id: string }
         Returns: number
@@ -2026,6 +2030,24 @@ export type Database = {
           similarity: number
         }[]
       }
+      record_credit_usage: {
+        Args: {
+          _amount?: number
+          _kind: Database["public"]["Enums"]["credit_kind"]
+          _metadata?: Json
+          _workspace_id: string
+        }
+        Returns: Json
+      }
+      set_security_code: {
+        Args: { _code: string; _user_id: string }
+        Returns: undefined
+      }
+      verify_security_code: {
+        Args: { _code: string; _user_id: string }
+        Returns: boolean
+      }
+      workspace_access_state: { Args: { _workspace_id: string }; Returns: Json }
       workspace_role_of: {
         Args: { _user_id: string; _workspace_id: string }
         Returns: Database["public"]["Enums"]["workspace_role"]
@@ -2075,7 +2097,12 @@ export type Database = {
       channel_type: "whatsapp" | "telegram" | "email" | "sms" | "webchat"
       contact_status: "lead" | "qualified" | "customer" | "churned"
       conversation_status: "open" | "pending" | "resolved" | "closed"
-      credit_kind: "image_gen" | "image_upload" | "video_gen" | "video_upload"
+      credit_kind:
+        | "image_gen"
+        | "image_upload"
+        | "video_gen"
+        | "video_upload"
+        | "ai_reply"
       deal_status: "open" | "won" | "lost"
       dialer_mode: "preview" | "progressive" | "predictive"
       dialer_status: "draft" | "running" | "paused" | "completed"
@@ -2277,7 +2304,13 @@ export const Constants = {
       channel_type: ["whatsapp", "telegram", "email", "sms", "webchat"],
       contact_status: ["lead", "qualified", "customer", "churned"],
       conversation_status: ["open", "pending", "resolved", "closed"],
-      credit_kind: ["image_gen", "image_upload", "video_gen", "video_upload"],
+      credit_kind: [
+        "image_gen",
+        "image_upload",
+        "video_gen",
+        "video_upload",
+        "ai_reply",
+      ],
       deal_status: ["open", "won", "lost"],
       dialer_mode: ["preview", "progressive", "predictive"],
       dialer_status: ["draft", "running", "paused", "completed"],

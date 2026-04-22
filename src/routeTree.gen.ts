@@ -28,6 +28,7 @@ import { Route as AppAiRouteImport } from './routes/app.ai'
 import { Route as AppSettingsIndexRouteImport } from './routes/app.settings.index'
 import { Route as AppCallsIndexRouteImport } from './routes/app.calls.index'
 import { Route as AppAiIndexRouteImport } from './routes/app.ai.index'
+import { Route as AppSettingsWalletRouteImport } from './routes/app.settings.wallet'
 import { Route as AppSettingsBillingRouteImport } from './routes/app.settings.billing'
 import { Route as AppCrmPipelineRouteImport } from './routes/app.crm.pipeline'
 import { Route as AppCrmContactsRouteImport } from './routes/app.crm.contacts'
@@ -134,6 +135,11 @@ const AppAiIndexRoute = AppAiIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppAiRoute,
 } as any)
+const AppSettingsWalletRoute = AppSettingsWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => AppSettingsRoute,
+} as any)
 const AppSettingsBillingRoute = AppSettingsBillingRouteImport.update({
   id: '/billing',
   path: '/billing',
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
@@ -240,6 +247,7 @@ export interface FileRoutesByTo {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai': typeof AppAiIndexRoute
   '/app/calls': typeof AppCallsIndexRoute
   '/app/settings': typeof AppSettingsIndexRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/app/crm/contacts': typeof AppCrmContactsRoute
   '/app/crm/pipeline': typeof AppCrmPipelineRoute
   '/app/settings/billing': typeof AppSettingsBillingRoute
+  '/app/settings/wallet': typeof AppSettingsWalletRoute
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/wallet'
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
@@ -333,6 +343,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/wallet'
     | '/app/ai'
     | '/app/calls'
     | '/app/settings'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/app/crm/contacts'
     | '/app/crm/pipeline'
     | '/app/settings/billing'
+    | '/app/settings/wallet'
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
@@ -511,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAiIndexRouteImport
       parentRoute: typeof AppAiRoute
     }
+    '/app/settings/wallet': {
+      id: '/app/settings/wallet'
+      path: '/wallet'
+      fullPath: '/app/settings/wallet'
+      preLoaderRoute: typeof AppSettingsWalletRouteImport
+      parentRoute: typeof AppSettingsRoute
+    }
     '/app/settings/billing': {
       id: '/app/settings/billing'
       path: '/billing'
@@ -622,11 +641,13 @@ const AppCallsRouteWithChildren = AppCallsRoute._addFileChildren(
 
 interface AppSettingsRouteChildren {
   AppSettingsBillingRoute: typeof AppSettingsBillingRoute
+  AppSettingsWalletRoute: typeof AppSettingsWalletRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
 }
 
 const AppSettingsRouteChildren: AppSettingsRouteChildren = {
   AppSettingsBillingRoute: AppSettingsBillingRoute,
+  AppSettingsWalletRoute: AppSettingsWalletRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
 }
 
