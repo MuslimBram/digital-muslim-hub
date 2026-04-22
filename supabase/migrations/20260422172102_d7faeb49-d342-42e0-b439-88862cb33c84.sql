@@ -1,0 +1,13 @@
+ALTER PUBLICATION supabase_realtime ADD TABLE public.subscriptions;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.wallets;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.wallet_transactions;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.engine_runs;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.credit_usage;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.ai_messages;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.ai_conversations;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.messages;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.conversations;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.tickets;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.deals;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.contacts;
+ALTER PUBLICATION supabase_realtime ADD TABLE public.workspace_integrations;
