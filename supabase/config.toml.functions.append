@@ -1,0 +1,3 @@
+# Reference snippet — append to supabase/config.toml manually if needed.
+# These two functions are public (no JWT verification) because they are called
+# by Paddle webhooks and the unauthenticated price resolver.
