@@ -36,11 +36,15 @@ export const Route = createRootRoute({
       { title: "Muslimi Digital — All-in-one SaaS për bizneset moderne" },
       { name: "description", content: "CRM, Unified Inbox, Marketing Automation, Helpdesk dhe AI në një platformë." },
       { name: "author", content: "Muslimi Digital" },
-      { property: "og:title", content: "Muslimi Digital" },
-      { property: "og:description", content: "Platforma SaaS që menaxhon, automatizon dhe rrit biznesin tënd." },
+      { property: "og:title", content: "Muslimi Digital — All-in-one SaaS për bizneset moderne" },
+      { property: "og:description", content: "CRM, Unified Inbox, Marketing Automation, Helpdesk dhe AI në një platformë." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@MuslimiDigital" },
+      { name: "twitter:title", content: "Muslimi Digital — All-in-one SaaS për bizneset moderne" },
+      { name: "twitter:description", content: "CRM, Unified Inbox, Marketing Automation, Helpdesk dhe AI në një platformë." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10bb8774-826c-4384-9740-130e342bfff3/id-preview-26ecf9d0--012c03e2-80c9-4661-93b7-288909f49c17.lovable.app-1776875719113.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/10bb8774-826c-4384-9740-130e342bfff3/id-preview-26ecf9d0--012c03e2-80c9-4661-93b7-288909f49c17.lovable.app-1776875719113.png" },
     ],
     links: [
       {
