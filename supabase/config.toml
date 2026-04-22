@@ -1,1 +1,13 @@
 project_id = "jiabgegdbccqqflsitqj"
+
+[functions.ai-chat]
+verify_jwt = true
+
+[functions.kb-ingest]
+verify_jwt = true
+
+[functions.kb-search]
+verify_jwt = true
+
+[functions.scan-website]
+verify_jwt = true
