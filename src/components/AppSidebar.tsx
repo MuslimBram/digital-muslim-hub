@@ -89,6 +89,7 @@ export function AppSidebar() {
     { to: "/app/settings/integrations", icon: Plug, label: "Integrime" },
     { to: "/app/settings/billing", icon: CreditCard, label: "Faturimi" },
     { to: "/app/settings/wallet", icon: WalletIcon, label: "Wallet" },
+    { to: "/app/referrals", icon: Heart, label: "Refer & Earn 15%" },
     { to: "/app/donate", icon: Heart, label: "Mbështet" },
   ];
 
