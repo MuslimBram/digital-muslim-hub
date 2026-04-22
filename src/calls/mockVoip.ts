@@ -172,7 +172,7 @@ export const mockVoipProvider: CallProvider = {
         call_id: callId,
         workspace_id: workspaceId,
         event_type: type,
-        payload: payload ?? {},
+        payload: (payload ?? {}) as never,
       },
     ]);
   },
