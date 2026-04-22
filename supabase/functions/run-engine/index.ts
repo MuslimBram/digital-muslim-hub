@@ -149,8 +149,11 @@ serve(async (req) => {
 
     const admin = getAdminClient();
     const authHeader = req.headers.get("Authorization");
-    const cronSecret = Deno.env.get("ENGINES_CRON_SECRET");
-    const isCron = cronSecret ? req.headers.get("x-engine-cron") === cronSecret : false;
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const isCron = !!serviceKey && (
+      req.headers.get("x-engine-cron") === serviceKey ||
+      authHeader === `Bearer ${serviceKey}`
+    );
 
     const body = await req.json().catch(() => ({}));
     const { workspaceId, engine, all } = body as { workspaceId?: string; engine?: EngineKey; all?: boolean };

@@ -39,7 +39,10 @@ import { Route as AppCallsRecordingsRouteImport } from './routes/app.calls.recor
 import { Route as AppCallsQueuesRouteImport } from './routes/app.calls.queues'
 import { Route as AppCallsIvrRouteImport } from './routes/app.calls.ivr'
 import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
+import { Route as AppAiEnginesRouteImport } from './routes/app.ai.engines'
 import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
+import { Route as AppAiEnginesIndexRouteImport } from './routes/app.ai.engines.index'
+import { Route as AppAiEnginesEngineRouteImport } from './routes/app.ai.engines.$engine'
 
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
@@ -191,10 +194,25 @@ const AppAiKnowledgeRoute = AppAiKnowledgeRouteImport.update({
   path: '/knowledge',
   getParentRoute: () => AppAiRoute,
 } as any)
+const AppAiEnginesRoute = AppAiEnginesRouteImport.update({
+  id: '/engines',
+  path: '/engines',
+  getParentRoute: () => AppAiRoute,
+} as any)
 const AppAiBrandVoiceRoute = AppAiBrandVoiceRouteImport.update({
   id: '/brand-voice',
   path: '/brand-voice',
   getParentRoute: () => AppAiRoute,
+} as any)
+const AppAiEnginesIndexRoute = AppAiEnginesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppAiEnginesRoute,
+} as any)
+const AppAiEnginesEngineRoute = AppAiEnginesEngineRouteImport.update({
+  id: '/$engine',
+  path: '/$engine',
+  getParentRoute: () => AppAiEnginesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -215,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/engines': typeof AppAiEnginesRouteWithChildren
   '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/calls/ivr': typeof AppCallsIvrRoute
   '/app/calls/queues': typeof AppCallsQueuesRoute
@@ -229,6 +248,8 @@ export interface FileRoutesByFullPath {
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
+  '/app/ai/engines/': typeof AppAiEnginesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -259,6 +280,8 @@ export interface FileRoutesByTo {
   '/app/ai': typeof AppAiIndexRoute
   '/app/calls': typeof AppCallsIndexRoute
   '/app/settings': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
+  '/app/ai/engines': typeof AppAiEnginesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -279,6 +302,7 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/auth/signup': typeof AuthSignupRoute
   '/app/ai/brand-voice': typeof AppAiBrandVoiceRoute
+  '/app/ai/engines': typeof AppAiEnginesRouteWithChildren
   '/app/ai/knowledge': typeof AppAiKnowledgeRoute
   '/app/calls/ivr': typeof AppCallsIvrRoute
   '/app/calls/queues': typeof AppCallsQueuesRoute
@@ -293,6 +317,8 @@ export interface FileRoutesById {
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
+  '/app/ai/engines/': typeof AppAiEnginesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -314,6 +340,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
+    | '/app/ai/engines'
     | '/app/ai/knowledge'
     | '/app/calls/ivr'
     | '/app/calls/queues'
@@ -328,6 +355,8 @@ export interface FileRouteTypes {
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
+    | '/app/ai/engines/$engine'
+    | '/app/ai/engines/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -358,6 +387,8 @@ export interface FileRouteTypes {
     | '/app/ai'
     | '/app/calls'
     | '/app/settings'
+    | '/app/ai/engines/$engine'
+    | '/app/ai/engines'
   id:
     | '__root__'
     | '/'
@@ -377,6 +408,7 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/auth/signup'
     | '/app/ai/brand-voice'
+    | '/app/ai/engines'
     | '/app/ai/knowledge'
     | '/app/calls/ivr'
     | '/app/calls/queues'
@@ -391,6 +423,8 @@ export interface FileRouteTypes {
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
+    | '/app/ai/engines/$engine'
+    | '/app/ai/engines/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -612,6 +646,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAiKnowledgeRouteImport
       parentRoute: typeof AppAiRoute
     }
+    '/app/ai/engines': {
+      id: '/app/ai/engines'
+      path: '/engines'
+      fullPath: '/app/ai/engines'
+      preLoaderRoute: typeof AppAiEnginesRouteImport
+      parentRoute: typeof AppAiRoute
+    }
     '/app/ai/brand-voice': {
       id: '/app/ai/brand-voice'
       path: '/brand-voice'
@@ -619,17 +660,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAiBrandVoiceRouteImport
       parentRoute: typeof AppAiRoute
     }
+    '/app/ai/engines/': {
+      id: '/app/ai/engines/'
+      path: '/'
+      fullPath: '/app/ai/engines/'
+      preLoaderRoute: typeof AppAiEnginesIndexRouteImport
+      parentRoute: typeof AppAiEnginesRoute
+    }
+    '/app/ai/engines/$engine': {
+      id: '/app/ai/engines/$engine'
+      path: '/$engine'
+      fullPath: '/app/ai/engines/$engine'
+      preLoaderRoute: typeof AppAiEnginesEngineRouteImport
+      parentRoute: typeof AppAiEnginesRoute
+    }
   }
 }
 
+interface AppAiEnginesRouteChildren {
+  AppAiEnginesEngineRoute: typeof AppAiEnginesEngineRoute
+  AppAiEnginesIndexRoute: typeof AppAiEnginesIndexRoute
+}
+
+const AppAiEnginesRouteChildren: AppAiEnginesRouteChildren = {
+  AppAiEnginesEngineRoute: AppAiEnginesEngineRoute,
+  AppAiEnginesIndexRoute: AppAiEnginesIndexRoute,
+}
+
+const AppAiEnginesRouteWithChildren = AppAiEnginesRoute._addFileChildren(
+  AppAiEnginesRouteChildren,
+)
+
 interface AppAiRouteChildren {
   AppAiBrandVoiceRoute: typeof AppAiBrandVoiceRoute
+  AppAiEnginesRoute: typeof AppAiEnginesRouteWithChildren
   AppAiKnowledgeRoute: typeof AppAiKnowledgeRoute
   AppAiIndexRoute: typeof AppAiIndexRoute
 }
 
 const AppAiRouteChildren: AppAiRouteChildren = {
   AppAiBrandVoiceRoute: AppAiBrandVoiceRoute,
+  AppAiEnginesRoute: AppAiEnginesRouteWithChildren,
   AppAiKnowledgeRoute: AppAiKnowledgeRoute,
   AppAiIndexRoute: AppAiIndexRoute,
 }
