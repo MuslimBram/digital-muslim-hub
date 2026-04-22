@@ -20,6 +20,7 @@ import {
   Heart,
   Wallet as WalletIcon,
   Plug,
+  Cpu,
 } from "lucide-react";
 import {
   Sidebar,
@@ -63,6 +64,7 @@ export function AppSidebar() {
     { to: "/app/ai", icon: MessageCircle, label: t("nav.ai.chat") },
     { to: "/app/ai/knowledge", icon: BookOpen, label: t("nav.ai.knowledge") },
     { to: "/app/ai/brand-voice", icon: Brain, label: t("nav.ai.brand") },
+    { to: "/app/ai/engines", icon: Cpu, label: "AI Engines" },
   ];
   const crm = [
     { to: "/app/crm/contacts", icon: Users, label: t("nav.contacts") },
