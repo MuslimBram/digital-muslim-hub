@@ -1,0 +1,9 @@
+ALTER VIEW public.v_engine_growth SET (security_invoker = true);
+ALTER VIEW public.v_engine_revenue SET (security_invoker = true);
+ALTER VIEW public.v_engine_pricing SET (security_invoker = true);
+ALTER VIEW public.v_engine_funnel SET (security_invoker = true);
+ALTER VIEW public.v_engine_retention SET (security_invoker = true);
+ALTER VIEW public.v_engine_viral SET (security_invoker = true);
+ALTER VIEW public.v_engine_personalization SET (security_invoker = true);
+ALTER VIEW public.v_engine_demand SET (security_invoker = true);
+ALTER VIEW public.v_engine_workforce SET (security_invoker = true);
