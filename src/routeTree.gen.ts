@@ -42,6 +42,7 @@ import { Route as AppAiKnowledgeRouteImport } from './routes/app.ai.knowledge'
 import { Route as AppAiEnginesRouteImport } from './routes/app.ai.engines'
 import { Route as AppAiBrandVoiceRouteImport } from './routes/app.ai.brand-voice'
 import { Route as AppAiEnginesIndexRouteImport } from './routes/app.ai.engines.index'
+import { Route as AppAiEnginesEngineRouteImport } from './routes/app.ai.engines.$engine'
 
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
@@ -208,6 +209,11 @@ const AppAiEnginesIndexRoute = AppAiEnginesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppAiEnginesRoute,
 } as any)
+const AppAiEnginesEngineRoute = AppAiEnginesEngineRouteImport.update({
+  id: '/$engine',
+  path: '/$engine',
+  getParentRoute: () => AppAiEnginesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -242,6 +248,7 @@ export interface FileRoutesByFullPath {
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
   '/app/ai/engines/': typeof AppAiEnginesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -273,6 +280,7 @@ export interface FileRoutesByTo {
   '/app/ai': typeof AppAiIndexRoute
   '/app/calls': typeof AppCallsIndexRoute
   '/app/settings': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
   '/app/ai/engines': typeof AppAiEnginesIndexRoute
 }
 export interface FileRoutesById {
@@ -309,6 +317,7 @@ export interface FileRoutesById {
   '/app/ai/': typeof AppAiIndexRoute
   '/app/calls/': typeof AppCallsIndexRoute
   '/app/settings/': typeof AppSettingsIndexRoute
+  '/app/ai/engines/$engine': typeof AppAiEnginesEngineRoute
   '/app/ai/engines/': typeof AppAiEnginesIndexRoute
 }
 export interface FileRouteTypes {
@@ -346,6 +355,7 @@ export interface FileRouteTypes {
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
+    | '/app/ai/engines/$engine'
     | '/app/ai/engines/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/app/ai'
     | '/app/calls'
     | '/app/settings'
+    | '/app/ai/engines/$engine'
     | '/app/ai/engines'
   id:
     | '__root__'
@@ -412,6 +423,7 @@ export interface FileRouteTypes {
     | '/app/ai/'
     | '/app/calls/'
     | '/app/settings/'
+    | '/app/ai/engines/$engine'
     | '/app/ai/engines/'
   fileRoutesById: FileRoutesById
 }
@@ -655,14 +667,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAiEnginesIndexRouteImport
       parentRoute: typeof AppAiEnginesRoute
     }
+    '/app/ai/engines/$engine': {
+      id: '/app/ai/engines/$engine'
+      path: '/$engine'
+      fullPath: '/app/ai/engines/$engine'
+      preLoaderRoute: typeof AppAiEnginesEngineRouteImport
+      parentRoute: typeof AppAiEnginesRoute
+    }
   }
 }
 
 interface AppAiEnginesRouteChildren {
+  AppAiEnginesEngineRoute: typeof AppAiEnginesEngineRoute
   AppAiEnginesIndexRoute: typeof AppAiEnginesIndexRoute
 }
 
 const AppAiEnginesRouteChildren: AppAiEnginesRouteChildren = {
+  AppAiEnginesEngineRoute: AppAiEnginesEngineRoute,
   AppAiEnginesIndexRoute: AppAiEnginesIndexRoute,
 }
 

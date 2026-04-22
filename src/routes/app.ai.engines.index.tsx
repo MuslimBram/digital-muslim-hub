@@ -77,13 +77,14 @@ function EnginesHub() {
     <div className="container py-8">
       <PageHeader
         title="AI Engines"
-        subtitle="9 engines që analizojnë biznesin tënd në kohë reale"
-      >
-        <Button onClick={refreshAll} disabled={running || !current} className="gap-2">
-          {running ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-          Përditëso të gjitha
-        </Button>
-      </PageHeader>
+        description="9 engines që analizojnë biznesin tënd në kohë reale"
+        actions={
+          <Button onClick={refreshAll} disabled={running || !current} className="gap-2">
+            {running ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+            Përditëso të gjitha
+          </Button>
+        }
+      />
 
       {loading ? (
         <div className="flex items-center justify-center py-16">
